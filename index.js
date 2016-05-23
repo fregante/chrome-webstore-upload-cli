@@ -10,17 +10,17 @@ const cli = meow(`
     Usage
       $ webstore <command>
 
-    where <command> is one of:
+    where <command> is either both or one of
         upload, publish
 
     Options
-      --extension-id    Don't overwrite the destination
-      --client-id       Preserve path structure
-      --client-secret   Working directory for files
-      --refresh-token   Rename all <source> filenames to <filename>
+      --extension-id    The ID of the Chrome Extension
+      --client-id       OAuth2 Client ID
+      --client-secret   OAuth2 Client Secret
+      --refresh-token   OAuth2 Refresh Token
 
     Options (alternative)
-        All Options can be set through environment variables, using the constant-cased name of the option
+        All options can be set through environment variables, using the constant-cased name of the option
 
     Examples
       Upload new extension archive to the Chrome Web Store
