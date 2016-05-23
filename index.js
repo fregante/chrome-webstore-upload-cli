@@ -38,14 +38,23 @@ const env = {
     clientSecret: process.env.CLIENT_SECRET,
     refreshToken: process.env.REFRESH_TOKEN
 };
-const client = webstore(Object.assign(env, cli.flags));
+
+let client;
+try {
+    client = webstore(Object.assign(env, cli.flags));
+} catch(err) {
+    console.error(err.message);
+    process.exit(1);
+}
+
 const zipPath = cli.input.pop();
 const commands = cli.input;
 const isUpload = commands.includes('upload');
 const isPublish = commands.includes('publish');
 
-if (!isUpload || !isPublish) {
-    throw new Error('Must specify command ("upload" or "publish")')
+if (!(isUpload || isPublish)) {
+    console.error('Must specify command ("upload" or "publish")');
+    process.exit(1);
 }
 
 const spinner = ora();
@@ -53,6 +62,35 @@ const spinnerStart = (text) => {
     spinner.text = text;
     return spinner.start();
 };
+
+if (isUpload && isPublish) {
+    spinnerStart('Fetching token');
+
+    client.fetchToken().then(token => {
+        return upload(token).then(res => {
+            if (!isUploadSuccess(res)) {
+                return exitWithUploadFailure(res);
+            }
+
+            return publish(token).then(exitWithPublishStatus);
+        });
+    }).catch(errorHandler);
+
+    return;
+}
+
+if (isUpload) {
+    upload().then(res => {
+        if (!isUploadSuccess(res)) {
+            return exitWithUploadFailure(res);
+        }
+        console.log('Upload Completed');
+    }).catch(errorHandler);
+}
+
+if (isPublish) {
+    publish().then(exitWithPublishStatus).catch(errorHandler);
+}
 
 function upload(token) {
     spinnerStart(`Uploading ${path.basename(zipPath)}`);
@@ -75,33 +113,23 @@ function publish(token) {
     });
 }
 
-if (isUpload && isPublish) {
-    spinnerStart('Fetching token');
-
-    client.fetchToken().then(token => {
-        return upload(token).then(res => {
-            console.log(res);
-            return publish(token);
-        }).then(res => {
-            console.log(res);
-        });
-    }).catch(errorHandler);
-
-    return;
+function isUploadSuccess(res) {
+    return res.uploadState === 'SUCCESS';
 }
 
-if (isUpload) {
-    upload().then(res => {
-        // TODO: Messaging to user on success/failure of upload
-        console.log(res);
-    }).catch(errorHandler);
+function exitWithUploadFailure(item) {
+    const firstError = item.itemError[0];
+    console.log(`Error Code: ${firstError.error_code}`);
+    console.log(`Details: ${firstError.error_detail}`);
+    process.exit(1);
 }
 
-if (isPublish) {
-    publish().then(res => {
-        // TODO: Messaging to user on success/failure of publish
-        console.log(res);
-    }).catch(errorHandler);
+function exitWithPublishStatus(item) {
+    const firstStatus = item.status[0];
+    const firstStatusDetail = item.status[0];
+    console.log(`Publish Status: ${firstStatus}`);
+    console.log(`Details: ${firstStatusDetail}`);
+    process.exit(0);
 }
 
 function errorHandler(err) {
