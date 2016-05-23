@@ -32,15 +32,6 @@ const cli = meow(`
     string: ['_']
 });
 
-const zipPath = cli.input.pop();
-const commands = cli.input; 
-const isUpload = commands.includes('upload');
-const isPublish = commands.includes('publish');
-
-if (!(isUpload || isPublish)) {
-    cli.showHelp(1);
-}
-
 const env = {
     extensionId: process.env.EXTENSION_ID,
     clientId: process.env.CLIENT_ID,
@@ -48,6 +39,15 @@ const env = {
     refreshToken: process.env.REFRESH_TOKEN
 };
 const client = webstore(Object.assign(env, cli.flags));
+const zipPath = cli.input.pop();
+const commands = cli.input;
+const isUpload = commands.includes('upload');
+const isPublish = commands.includes('publish');
+
+if (!isUpload || !isPublish) {
+    throw new Error('Must specify command ("upload" or "publish")')
+}
+
 const spinner = ora();
 const spinnerStart = (text) => {
     spinner.text = text;

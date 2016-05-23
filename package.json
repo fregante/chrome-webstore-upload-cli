@@ -16,7 +16,8 @@
   "author": "Andrew Levine",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.14.0"
+    "ava": "^0.14.0",
+    "execa": "^0.4.0"
   },
   "dependencies": {
     "chrome-webstore-upload": "^0.1.0",
