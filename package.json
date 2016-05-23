@@ -20,7 +20,7 @@
     "execa": "^0.4.0"
   },
   "dependencies": {
-    "chrome-webstore-upload": "^0.1.0",
+    "chrome-webstore-upload": "^0.2.0",
     "meow": "^3.7.0",
     "ora": "^0.2.3"
   }
