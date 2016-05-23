@@ -1,5 +1,7 @@
 # Web Store Upload CLI
 
+![CI Status](https://travis-ci.org/DrewML/chrome-webstore-upload-cli.svg)
+
 A CLI wrapper around the [Web Store Upload](https://github.com/DrewML/chrome-webstore-upload) module.
 
 ## Install
