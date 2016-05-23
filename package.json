@@ -1,0 +1,25 @@
+{
+  "name": "chrome-webstore-upload-cli",
+  "version": "0.1.0",
+  "description": "CLI Utility to quickly upload + publish extensions to the Chrome Web Store",
+  "bin": {
+    "webstore": "index.js"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "publish"
+  ],
+  "author": "Andrew Levine",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.14.0"
+  },
+  "dependencies": {
+    "chrome-webstore-upload": "^0.1.0",
+    "meow": "^3.7.0"
+  }
+}
