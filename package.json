@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "chrome-webstore-upload": "^0.1.0",
-    "meow": "^3.7.0"
+    "meow": "^3.7.0",
+    "ora": "^0.2.3"
   }
 }

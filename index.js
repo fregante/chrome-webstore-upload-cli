@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
+const ora = require('ora');
 const path = require('path');
 const meow = require('meow');
 const webstore = require('chrome-webstore-upload');
@@ -32,7 +33,7 @@ const cli = meow(`
 });
 
 const zipPath = cli.input.pop();
-const commands = cli.input;
+const commands = cli.input; 
 const isUpload = commands.includes('upload');
 const isPublish = commands.includes('publish');
 
@@ -47,19 +48,57 @@ const env = {
     refreshToken: process.env.REFRESH_TOKEN
 };
 const client = webstore(Object.assign(env, cli.flags));
+const spinner = ora();
+const spinnerStart = (text) => {
+    spinner.text = text;
+    return spinner.start();
+};
 
-if (isUpload) {
+function upload(token) {
+    spinnerStart(`Uploading ${path.basename(zipPath)}`);
+
     const fullPath = path.join(process.cwd(), zipPath);
     const zipStream = fs.createReadStream(fullPath);
 
-    client.uploadExisting(zipStream).then(res => {
+    return client.uploadExisting(zipStream, token).then(res => {
+        spinner.stop();
+        return res;
+    });
+}
+
+function publish(token) {
+    spinnerStart('Publishing');
+
+    return client.publish(undefined, token).then(res => {
+        spinner.stop();
+        return res;
+    });
+}
+
+if (isUpload && isPublish) {
+    spinnerStart('Fetching token');
+
+    client.fetchToken().then(token => {
+        return upload(token).then(res => {
+            console.log(res);
+            return publish(token);
+        }).then(res => {
+            console.log(res);
+        });
+    }).catch(errorHandler);
+
+    return;
+}
+
+if (isUpload) {
+    upload().then(res => {
         // TODO: Messaging to user on success/failure of upload
         console.log(res);
     }).catch(errorHandler);
 }
 
 if (isPublish) {
-    client.publish().then(res => {
+    publish().then(res => {
         // TODO: Messaging to user on success/failure of publish
         console.log(res);
     }).catch(errorHandler);
