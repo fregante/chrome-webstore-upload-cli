@@ -4,6 +4,9 @@
 
 A CLI wrapper around the [Web Store Upload](https://github.com/DrewML/chrome-webstore-upload) module.
 
+The following projects use this package to facilitate auto-deployment of extensions
+- [Octo Preview](https://github.com/DrewML/octo-preview)
+
 ## Install
 
 ```shell
