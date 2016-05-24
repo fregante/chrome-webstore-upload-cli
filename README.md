@@ -27,17 +27,16 @@ $ webstore --help
   Usage
     $ webstore <command>
 
-  where <command> is either both or one of
+  where <command> is one of
       upload, publish
 
   Options
+    --file            Path to zip file
     --extension-id    The ID of the Chrome Extension
     --client-id       OAuth2 Client ID
     --client-secret   OAuth2 Client Secret
     --refresh-token   OAuth2 Refresh Token
-
-  Options (alternative)
-      All options can be set through environment variables, using the constant-cased name of the option
+    --auto-publish    Can be used with the "upload" command
 
   Examples
     Upload new extension archive to the Chrome Web Store

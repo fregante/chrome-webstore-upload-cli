@@ -18,13 +18,17 @@ module.exports = {
         process.exit(0);
     },
 
-    validateInput(input) {
+    validateInput(input, { file }) {
         if (!input.length) {
             return { error: 'Must specify "upload" or "publish"' };
         }
 
         if (input.length > 1) {
             return { error: 'Too many parameters' };
+        }
+
+        if (typeof file !== 'string') {
+            return { error: '--file parameter required' };
         }
 
         return { valid: true };

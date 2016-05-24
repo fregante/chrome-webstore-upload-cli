@@ -38,9 +38,9 @@ const cli = meow(`
     string: ['_']
 });
 
-const isValidInput = validateInput(cli.input);
-if (isValidInput.error) {
-    console.error(red(isValidInput.error));
+const preliminaryValidation = validateInput(cli.input, cli.flags);
+if (preliminaryValidation.error) {
+    console.error(red(preliminaryValidation.error));
     cli.showHelp(1);
 }
 
@@ -107,6 +107,7 @@ if (isPublish) {
 }
 
 function errorHandler(err) {
-    console.error(err);
+    spinner.stop();
+    console.error(red(err.message));
     process.exit(1);
 }
