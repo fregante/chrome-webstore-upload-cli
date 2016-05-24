@@ -12,9 +12,11 @@ module.exports = {
 
     exitWithPublishStatus(item) {
         const firstStatus = item.status[0];
-        const firstStatusDetail = item.status[0];
+        // TODO: Look at item stucture and determine where "detail" actually is,
+        // since it's clearly not the same as the line right above this
+        // const firstStatusDetail = item.status[0];
         console.log(`Publish Status: ${firstStatus}`);
-        console.log(`Details: ${firstStatusDetail}`);
+        // console.log(`Details: ${firstStatusDetail}`);
         process.exit(0);
     },
 
