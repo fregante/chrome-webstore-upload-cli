@@ -3,6 +3,7 @@
 const ora = require('ora');
 const path = require('path');
 const meow = require('meow');
+const { green, red } = require('chalk');
 const createConfig = require('./config');
 const { upload, publish, fetchToken } = require('./wrapper');
 const {
@@ -16,17 +17,16 @@ const cli = meow(`
     Usage
       $ webstore <command>
 
-    where <command> is either both or one of
+    where <command> is one of
         upload, publish
 
     Options
+      --file            Path to zip file
       --extension-id    The ID of the Chrome Extension
       --client-id       OAuth2 Client ID
       --client-secret   OAuth2 Client Secret
       --refresh-token   OAuth2 Refresh Token
-
-    Options (alternative)
-        All options can be set through environment variables, using the constant-cased name of the option
+      --auto-publish    Can be used with the "upload" command
 
     Examples
       Upload new extension archive to the Chrome Web Store
@@ -40,16 +40,17 @@ const cli = meow(`
 
 const isValidInput = validateInput(cli.input);
 if (isValidInput.error) {
-    console.error(isValidInput.error);
-    process.exit(1);
+    console.error(red(isValidInput.error));
+    cli.showHelp(1);
 }
 
 const {
     apiConfig,
     zipPath,
     isUpload,
-    isPublish
-} = createConfig(cli.input, cli.flags);
+    isPublish,
+    autoPublish
+} = createConfig(cli.input[0], cli.flags);
 
 const spinner = ora();
 const spinnerStart = (text) => {
@@ -57,7 +58,7 @@ const spinnerStart = (text) => {
     return spinner.start();
 };
 
-if (isUpload && isPublish) {
+if (isUpload && autoPublish) {
     spinnerStart('Fetching token');
 
     fetchToken(apiConfig).then(token => {
@@ -93,7 +94,7 @@ if (isUpload) {
         spinner.stop();
         if (!isUploadSuccess(res)) return exitWithUploadFailure(res);
 
-        console.log('Upload Completed');
+        console.log(green('Upload Completed'));
     }).catch(errorHandler);
 }
 

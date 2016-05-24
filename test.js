@@ -6,7 +6,7 @@ const clientSecret = 'client-secret';
 const refreshToken = 'refresh-token';
 const extensionId = 'extension-id';
 
-test('Exits with message when a required option is not provided', async t => {
+test.skip('Exits with message when a required option is not provided', async t => {
     try {
         await execa('./index.js', ['upload']);
         t.fail('Should have errored');

@@ -19,12 +19,12 @@ module.exports = {
     },
 
     validateInput(input) {
-        if (input.length > 2) {
-            return { error: 'Too many parameters passed' };
+        if (!input.length) {
+            return { error: 'Must specify "upload" or "publish"' };
         }
 
-        if (input.length < 2) {
-            return { error: 'Required parameters missing' }
+        if (input.length > 1) {
+            return { error: 'Too many parameters' };
         }
 
         return { valid: true };

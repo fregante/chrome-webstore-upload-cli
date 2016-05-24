@@ -1,20 +1,18 @@
-module.exports = function(input, flags) {
-    const env = {
-        extensionId: process.env.EXTENSION_ID,
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        refreshToken: process.env.REFRESH_TOKEN
+module.exports = function(command, flags) {
+    const apiConfig = {
+        extensionId: flags.extensionId || process.env.EXTENSION_ID,
+        clientId: flags.clientId || process.env.CLIENT_ID,
+        clientSecret: flags.clientSecret || process.env.CLIENT_SECRET,
+        refreshToken: flags.refreshToken || process.env.REFRESH_TOKEN
     };
 
-    const zipPath = input.pop();
-    const commands = input;
-    console.log(commands);
-    console.log(zipPath);
+    const zipPath = flags.file;
 
     return {
-        zipPath,
-        apiConfig: Object.assign(env, flags),
-        isUpload: commands.includes('upload'),
-        isPublish: commands.includes('publish')
+        apiConfig,
+        zipPath: flags.file,
+        isUpload: command === 'upload',
+        isPublish: command === 'publish',
+        autoPublish: flags.autoPublish
     };
 };
