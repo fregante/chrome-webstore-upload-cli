@@ -7,6 +7,10 @@ A CLI wrapper around the [Web Store Upload](https://github.com/DrewML/chrome-web
 The following projects use this package to facilitate auto-deployment of extensions
 - [Octo Preview](https://github.com/DrewML/octo-preview)
 
+## Minimum node.js version
+
+You must be using a `node.js` version >= `6.0.0`. 
+
 ## Install
 
 ```shell
@@ -31,7 +35,7 @@ $ webstore --help
       upload, publish
 
   Options
-    --file            Path to zip file
+    --source          Path to either a zip file, or a directory to be zipped
     --extension-id    The ID of the Chrome Extension
     --client-id       OAuth2 Client ID
     --client-secret   OAuth2 Client Secret

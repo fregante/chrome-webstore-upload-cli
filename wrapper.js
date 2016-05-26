@@ -1,10 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+const zipdir = require('./zipdir');
 const webstore = require('chrome-webstore-upload');
 
 function getClient(apiConfig) {
     return webstore(apiConfig);
 }
+
+const isZip = filepath => path.extname(filepath) === '.zip';
 
 module.exports = {
     upload({ apiConfig, zipPath, token }) {
@@ -16,9 +19,15 @@ module.exports = {
         }
 
         const fullPath = path.join(process.cwd(), zipPath);
-        const zipStream = fs.createReadStream(fullPath);
 
-        return client.uploadExisting(zipStream, token);
+        if (isZip(fullPath)) {
+            const zipStream = fs.createReadStream(fullPath);
+            return client.uploadExisting(zipStream, token);
+        }
+
+        return zipdir(zipPath).then(zipStream => {
+            return client.uploadExisting(zipStream, token);
+        });
     },
 
     publish({ apiConfig, token }) {

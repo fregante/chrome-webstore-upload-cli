@@ -31,10 +31,10 @@ test('All options supported as env vars', t => {
 });
 
 test('Extracts zip path', t => {
-    const file = 'foo.zip';
-    const config = createConfig(null, { file });
+    const source = 'foo.zip';
+    const config = createConfig(null, { source });
 
-    t.is(config.zipPath, file);
+    t.is(config.zipPath, source);
 });
 
 test('Upload', t => {

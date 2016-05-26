@@ -57,3 +57,31 @@ test('exitWithPublishStatus', t => {
     resetExit();
     resetLog();
 });
+
+test('zipPath', t => {
+    const pathMappings = [{
+        root: 'extension',
+        file: 'extension/manifest.json',
+        expected: 'manifest.json'
+    }, {
+        root: 'extension/',
+        file: 'extension/foo/bar.js',
+        expected: 'foo/bar.js'
+    }, {
+        root: '.',
+        file: './manifest.json',
+        expected: 'manifest.json'
+    }, {
+        root: 'extension/foo',
+        file: 'extension/foo/manifest.json',
+        expected: 'manifest.json'
+    }, {
+        root: 'extension/foo',
+        file: 'extension/foo/bar/biz.js',
+        expected: 'bar/biz.js'
+    }];
+
+    pathMappings.forEach(({ root, file, expected }) =>{
+        t.is(util.zipPath(root, file), expected);
+    });
+});

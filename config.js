@@ -6,11 +6,9 @@ module.exports = function(command, flags) {
         refreshToken: flags.refreshToken || process.env.REFRESH_TOKEN
     };
 
-    const zipPath = flags.file;
-
     return {
         apiConfig,
-        zipPath: flags.file,
+        zipPath: flags.source,
         isUpload: command === 'upload',
         isPublish: command === 'publish',
         autoPublish: flags.autoPublish

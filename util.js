@@ -1,3 +1,5 @@
+const relative = require('path').relative;
+
 module.exports = {
     isUploadSuccess(res) {
         return res.uploadState === 'SUCCESS';
@@ -20,7 +22,7 @@ module.exports = {
         process.exit(0);
     },
 
-    validateInput(input, { file }) {
+    validateInput(input, { source }) {
         if (!input.length) {
             return { error: 'Must specify "upload" or "publish"' };
         }
@@ -29,10 +31,14 @@ module.exports = {
             return { error: 'Too many parameters' };
         }
 
-        if (typeof file !== 'string') {
-            return { error: '--file parameter required' };
+        if (typeof source !== 'string') {
+            return { error: '--source parameter required' };
         }
 
         return { valid: true };
+    },
+
+    zipPath(root, file) {
+        return relative(root, file);
     }
 };
