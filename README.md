@@ -1,10 +1,11 @@
 # Web Store Upload CLI
 
-![CI Status](https://travis-ci.org/DrewML/chrome-webstore-upload-cli.svg)
+[![CI status](https://travis-ci.org/DrewML/chrome-webstore-upload-cli.svg)](https://travis-ci.org/DrewML/chrome-webstore-upload-cli)
 
 A CLI wrapper around the [Web Store Upload](https://github.com/DrewML/chrome-webstore-upload) module.
 
 The following projects use this package to facilitate auto-deployment of extensions
+- [GifHub](https://github.com/DrewML/GifHub)
 - [Octo Preview](https://github.com/DrewML/octo-preview)
 
 ## Minimum node.js version
