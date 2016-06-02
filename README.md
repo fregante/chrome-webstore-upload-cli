@@ -7,6 +7,7 @@ A CLI wrapper around the [Web Store Upload](https://github.com/DrewML/chrome-web
 The following projects use this package to facilitate auto-deployment of extensions
 - [GifHub](https://github.com/DrewML/GifHub)
 - [Octo Preview](https://github.com/DrewML/octo-preview)
+- [Running Redmine](https://github.com/paulmolluzzo/running-redmine)
 
 ## Minimum node.js version
 
