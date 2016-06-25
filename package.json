@@ -10,8 +10,13 @@
   },
   "keywords": [
     "chrome",
+    "publish",
+    "webstore",
     "extension",
-    "publish"
+    "deploy",
+    "update",
+    "upload",
+    "cli"
   ],
   "author": "Andrew Levine",
   "license": "MIT",
