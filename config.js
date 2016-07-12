@@ -3,7 +3,8 @@ module.exports = function(command, flags) {
         extensionId: flags.extensionId || process.env.EXTENSION_ID,
         clientId: flags.clientId || process.env.CLIENT_ID,
         clientSecret: flags.clientSecret || process.env.CLIENT_SECRET,
-        refreshToken: flags.refreshToken || process.env.REFRESH_TOKEN
+        refreshToken: flags.refreshToken || process.env.REFRESH_TOKEN,
+        publishTarget: flags.publishTarget || process.env.PUBLISH_TARGET
     };
 
     return {

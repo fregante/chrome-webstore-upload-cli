@@ -26,6 +26,7 @@ const cli = meow(`
       --client-id       OAuth2 Client ID
       --client-secret   OAuth2 Client Secret
       --refresh-token   OAuth2 Refresh Token
+      --publish-target  Either 'default' or 'trustedTesters'
       --auto-publish    Can be used with the "upload" command
 
     Examples
