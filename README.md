@@ -11,7 +11,7 @@ The following projects use this package to facilitate auto-deployment of extensi
 
 ## Minimum node.js version
 
-You must be using a `node.js` version >= `6.0.0`. 
+You must be using a `node.js` version >= `6.0.0`.
 
 ## Install
 
@@ -37,7 +37,7 @@ $ webstore --help
       upload, publish
 
   Options
-    --source          Path to either a zip file, or a directory to be zipped
+    --source          Path to either a zip file, or a directory to be zipped (Defaults to cwd if not specified)
     --extension-id    The ID of the Chrome Extension
     --client-id       OAuth2 Client ID
     --client-secret   OAuth2 Client Secret
