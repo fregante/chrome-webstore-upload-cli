@@ -35,7 +35,10 @@ const cli = meow(`
       Publish extension (with CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN set as env variables)
       $ webstore publish --client-id elomekmlfonmdhmpmdfldcjgdoacjcba
 `, {
-    string: ['_']
+    string: ['_'],
+    default: {
+        source: process.cwd()
+    }
 });
 
 const preliminaryValidation = validateInput(cli.input, cli.flags);

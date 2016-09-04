@@ -19,13 +19,13 @@ test('Exits w/ message when param required by "Web Store Upload" is not provided
     }
 });
 
-test('Exits w/ message when --source param not provided', async t => {
+test('It should not exit when --source param is not provided', async t => {
     try {
         await execa('../index.js', ['upload'], {
             env: env()
         });
-        t.fail('Should have errored');
+        t.true();
     } catch(err) {
-        t.true(err.message.includes('--source parameter required'));
+        t.true(/Response code 401 \(Unauthorized\)/.test(err.message));
     }
 });

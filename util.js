@@ -31,10 +31,6 @@ module.exports = {
             return { error: 'Too many parameters' };
         }
 
-        if (typeof source !== 'string') {
-            return { error: '--source parameter required' };
-        }
-
         return { valid: true };
     },
 
