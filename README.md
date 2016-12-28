@@ -8,6 +8,9 @@ The following projects use this package to facilitate auto-deployment of extensi
 - [GifHub](https://github.com/DrewML/GifHub)
 - [Octo Preview](https://github.com/DrewML/octo-preview)
 - [Running Redmine](https://github.com/paulmolluzzo/running-redmine)
+- [GhostText](https://github.com/GhostText/GhostText)
+- [GitHub Clean Feed](https://github.com/bfred-it/github-clean-feed)
+- [npm-hub](https://github.com/zeke/npm-hub)
 
 ## Minimum node.js version
 
