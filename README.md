@@ -26,9 +26,9 @@ npm install -g chrome-webstore-upload-cli
 npm install --save-dev chrome-webstore-upload-cli
 ```
 
-## Obtaining API Access
+## Setup
 
-To use this package, you will need to setup an OAuth2 Client ID, Client Secret, and Refresh token through the Google Developer Dashboard. Instructions can be found [here](https://developer.chrome.com/webstore/using_webstore_api)
+You will need a Google API `clientId`, a `clientSecret` and a `refreshToken`. Read [the guide.](https://github.com/DrewML/chrome-webstore-upload/blob/master/How to generate Google API keys.md)
 
 ## Usage
 
