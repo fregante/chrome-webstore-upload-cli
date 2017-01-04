@@ -38,7 +38,7 @@ module.exports = {
             return Promise.reject(err);
         }
 
-        return client.publish(undefined, token);
+        return client.publish(apiConfig.publishTarget, token);
     },
 
     fetchToken(apiConfig) {
@@ -48,7 +48,7 @@ module.exports = {
         } catch(err) {
             return Promise.reject(err);
         }
-        
+
         return client.fetchToken();
     }
 };

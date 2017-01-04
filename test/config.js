@@ -15,7 +15,8 @@ test('All options supported as env vars', t => {
         'EXTENSION_ID',
         'CLIENT_ID',
         'CLIENT_SECRET',
-        'REFRESH_TOKEN'
+        'REFRESH_TOKEN',
+        'PUBLISH_TARGET'
     ];
     const varsVal = "123";
 
@@ -26,6 +27,7 @@ test('All options supported as env vars', t => {
     t.is(config.apiConfig.clientId, varsVal);
     t.is(config.apiConfig.clientSecret, varsVal);
     t.is(config.apiConfig.refreshToken, varsVal);
+    t.is(config.apiConfig.publishTarget, varsVal);
 
     vars.forEach(name => delete process.env[name]);
 });
@@ -41,7 +43,7 @@ test('Upload', t => {
     const config = createConfig('upload', {});
 
     t.true(config.isUpload);
-    t.false(config.isPublish);   
+    t.false(config.isPublish);
 });
 
 test('Publish', t => {
