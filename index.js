@@ -3,7 +3,7 @@
 const ora = require('ora');
 const path = require('path');
 const meow = require('meow');
-const { green, red } = require('chalk');
+const { green, red, yellow } = require('chalk');
 const createConfig = require('./config');
 const { upload, publish, fetchToken } = require('./wrapper');
 const {
@@ -112,5 +112,11 @@ if (isPublish) {
 function errorHandler(err) {
     spinner.stop();
     console.error(red(err.message));
+
+    if (err.response && err.response.body) {
+        try {
+            console.error(yellow(JSON.stringify(err.response.body, null, 4)));
+        } catch (err) {}
+    }
     process.exit(1);
 }
