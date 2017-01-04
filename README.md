@@ -28,7 +28,19 @@ npm install --save-dev chrome-webstore-upload-cli
 
 ## Obtaining API Access
 
-To use this package, you will need to setup an OAuth2 Client ID, Client Secret, and Refresh token through the Google Developer Dashboard. Instructions can be found [here](https://developer.chrome.com/webstore/using_webstore_api)
+0. Visit the [Developer Console](https://console.developers.google.com/apis/api/chromewebstore/overview).
+0. Click the button to create a new project (confusing, but totally separate from the project for your extension). You can literally name it anything (you'll likely never see the name again).
+0. When redirected back to the `Overview` page, click `Enable` for the API
+0. Click the `Credentials` tab on the left-hand side of the page
+0. Click `Create credentials → OAuth Client ID`
+![](https://cloud.githubusercontent.com/assets/5233399/16550256/e543c3fe-416d-11e6-94d7-692a47372843.png)
+
+0. Go through the `Configure consent` screen prompt (you just need to enter a project name)
+![](https://cloud.githubusercontent.com/assets/5233399/16550261/fa8e9d6a-416d-11e6-9a99-636d3c54e271.png)
+
+0. You should then be given a `client_id` and `client_secret`
+0. Now, go to [this page](https://developer.chrome.com/webstore/using_webstore_api), and start at step 9. Make sure you go through the OAuth acceptance page logged in under the account that owns the extension you're planning to publish.
+0. Once you've jumped through all the hoops outlined in that document, you should have your `client_id`, `client_secret`, and `refresh_token`.
 
 ## Usage
 
