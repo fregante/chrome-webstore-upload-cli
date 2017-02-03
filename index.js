@@ -27,6 +27,8 @@ const cli = meow(`
       --client-secret   OAuth2 Client Secret
       --refresh-token   OAuth2 Refresh Token
       --auto-publish    Can be used with the "upload" command
+      --trusted-testers    Can be used with the "publish" command
+
 
     Examples
       Upload new extension archive to the Chrome Web Store
@@ -52,7 +54,8 @@ const {
     zipPath,
     isUpload,
     isPublish,
-    autoPublish
+    autoPublish,
+    trustedTesters
 } = createConfig(cli.input[0], cli.flags);
 
 const spinner = ora();
@@ -103,7 +106,8 @@ if (isUpload) {
 
 if (isPublish) {
     spinnerStart('Publishing');
-    publish({ apiConfig }).then(res => {
+
+    publish({ apiConfig }, trustedTesters ? "trustedTesters" : undefined ).then(res => {
         spinner.stop();
         exitWithPublishStatus(res);
     }).catch(errorHandler);
