@@ -107,7 +107,7 @@ if (isUpload) {
 if (isPublish) {
     spinnerStart('Publishing');
 
-    publish({ apiConfig }, trustedTesters ? "trustedTesters" : undefined ).then(res => {
+    publish({ apiConfig }, trustedTesters && 'trustedTesters').then(res => {
         spinner.stop();
         exitWithPublishStatus(res);
     }).catch(errorHandler);
