@@ -19,7 +19,7 @@ You must be using a `node.js` version >= `6.0.0`.
 
 ## Install
 
-```shell
+```bash
 ## Globally
 npm install -g chrome-webstore-upload-cli
 
@@ -29,11 +29,11 @@ npm install --save-dev chrome-webstore-upload-cli
 
 ## Setup
 
-You will need a Google API `clientId`, a `clientSecret` and a `refreshToken`. Read [the guide.](https://github.com/DrewML/chrome-webstore-upload/blob/master/How to generate Google API keys.md)
+You will need a Google API `clientId`, a `clientSecret` and a `refreshToken`. Read [the guide](https://github.com/DrewML/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md).
 
 ## Usage
 
-```
+```bash
 $ webstore --help
 
   CLI Utility to quickly upload + publish extensions to the Chrome Web Store
