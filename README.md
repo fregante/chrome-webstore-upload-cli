@@ -11,6 +11,7 @@ The following projects use this package to facilitate auto-deployment of extensi
 - [GhostText](https://github.com/GhostText/GhostText)
 - [GitHub Clean Feed](https://github.com/bfred-it/github-clean-feed)
 - [npm-hub](https://github.com/zeke/npm-hub)
+- [OctoLinker](https://github.com/octolinker/browser-extension)
 
 ## Minimum node.js version
 
