@@ -45,11 +45,12 @@ $ webstore --help
 
   Options
     --source          Path to either a zip file, or a directory to be zipped (Defaults to cwd if not specified)
-    --extension-id    The ID of the Chrome Extension
-    --client-id       OAuth2 Client ID
-    --client-secret   OAuth2 Client Secret
-    --refresh-token   OAuth2 Refresh Token
-    --auto-publish    Can be used with the "upload" command
+    --extension-id      The ID of the Chrome Extension
+    --client-id         OAuth2 Client ID
+    --client-secret     OAuth2 Client Secret
+    --refresh-token     OAuth2 Refresh Token
+    --auto-publish      Can be used with the "upload" command
+    --trusted-testers   Can be used with the "publish" command
 
   Examples
     Upload new extension archive to the Chrome Web Store
