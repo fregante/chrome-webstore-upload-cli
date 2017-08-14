@@ -21,12 +21,12 @@ const cli = meow(`
         upload, publish
 
     Options
-      --source          Path to either a zip file, or a directory to be zipped
-      --extension-id    The ID of the Chrome Extension
-      --client-id       OAuth2 Client ID
-      --client-secret   OAuth2 Client Secret
-      --refresh-token   OAuth2 Refresh Token
-      --auto-publish    Can be used with the "upload" command
+      --source             Path to either a zip file, or a directory to be zipped
+      --extension-id       The ID of the Chrome Extension
+      --client-id          OAuth2 Client ID
+      --client-secret      OAuth2 Client Secret
+      --refresh-token      OAuth2 Refresh Token
+      --auto-publish       Can be used with the "upload" command
       --trusted-testers    Can be used with the "publish" command
 
 
