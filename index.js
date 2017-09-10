@@ -33,7 +33,7 @@ const cli = meow(`
       $ webstore upload --source extension.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN
 
       Publish extension (with CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN set as env variables)
-      $ webstore publish --client-id elomekmlfonmdhmpmdfldcjgdoacjcba
+      $ webstore publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 `, {
     string: ['_'],
     default: {
