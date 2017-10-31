@@ -8,6 +8,7 @@ module.exports = function(command, flags) {
 
     return {
         apiConfig,
+        target: flags.target || process.env.EXTENSION_TARGET
         zipPath: flags.source,
         isUpload: command === 'upload',
         isPublish: command === 'publish',

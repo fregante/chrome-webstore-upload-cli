@@ -30,7 +30,7 @@ module.exports = {
         });
     },
 
-    publish({ apiConfig, token }) {
+    publish({ apiConfig, token, target }) {
         let client;
         try {
             client = getClient(apiConfig);
@@ -38,7 +38,7 @@ module.exports = {
             return Promise.reject(err);
         }
 
-        return client.publish(undefined, token);
+        return client.publish(target, token);
     },
 
     fetchToken(apiConfig) {
