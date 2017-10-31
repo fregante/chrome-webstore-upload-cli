@@ -51,6 +51,7 @@ $ webstore --help
     --client-secret   OAuth2 Client Secret
     --refresh-token   OAuth2 Refresh Token
     --auto-publish    Can be used with the "upload" command
+    --target          Extension publish target; can be used with "publish" or "upload --auto-publish" command
 
   Examples
     Upload new extension archive to the Chrome Web Store

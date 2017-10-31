@@ -13,6 +13,7 @@ test('Favors params over env vars', t => {
 test('All options supported as env vars', t => {
     const vars = [
         'EXTENSION_ID',
+        'EXTENSION_TARGET',
         'CLIENT_ID',
         'CLIENT_SECRET',
         'REFRESH_TOKEN'
@@ -23,6 +24,7 @@ test('All options supported as env vars', t => {
 
     const config = createConfig(null, {});
     t.is(config.apiConfig.extensionId, varsVal);
+    t.is(config.target, varsVal);
     t.is(config.apiConfig.clientId, varsVal);
     t.is(config.apiConfig.clientSecret, varsVal);
     t.is(config.apiConfig.refreshToken, varsVal);

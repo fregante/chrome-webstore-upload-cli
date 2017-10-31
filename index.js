@@ -27,6 +27,7 @@ const cli = meow(`
       --client-secret   OAuth2 Client Secret
       --refresh-token   OAuth2 Refresh Token
       --auto-publish    Can be used with the "upload" command
+      --target          Target for publishing (default, trustedTesters etc.)
 
     Examples
       Upload new extension archive to the Chrome Web Store
@@ -49,6 +50,7 @@ if (preliminaryValidation.error) {
 
 const {
     apiConfig,
+    target,
     zipPath,
     isUpload,
     isPublish,
@@ -78,7 +80,7 @@ if (isUpload && autoPublish) {
             }
 
             spinnerStart('Publishing');
-            return publish({ apiConfig, token }).then(publishRes => {
+            return publish({ apiConfig, token, target }).then(publishRes => {
                 spinner.stop();
                 exitWithPublishStatus(publishRes);
             });
@@ -103,7 +105,7 @@ if (isUpload) {
 
 if (isPublish) {
     spinnerStart('Publishing');
-    publish({ apiConfig }).then(res => {
+    publish({ apiConfig, null, target }).then(res => {
         spinner.stop();
         exitWithPublishStatus(res);
     }).catch(errorHandler);
