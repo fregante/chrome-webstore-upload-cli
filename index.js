@@ -81,7 +81,7 @@ if (isUpload && autoPublish) {
             }
 
             spinnerStart('Publishing');
-            return publish({ apiConfig, token }).then(publishRes => {
+            return publish({ apiConfig, token }, trustedTesters && 'trustedTesters').then(publishRes => {
                 spinner.stop();
                 exitWithPublishStatus(publishRes);
             });
