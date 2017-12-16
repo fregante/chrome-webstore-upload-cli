@@ -13,6 +13,7 @@ The following projects use this package to facilitate auto-deployment of extensi
 - [npm-hub](https://github.com/zeke/npm-hub)
 - [OctoLinker](https://github.com/octolinker/browser-extension)
 - [Refined GitHub](https://github.com/sindresorhus/refined-github)
+- [Refined Twitter](https://github.com/sindresorhus/refined-twitter)
 
 ## Minimum node.js version
 
