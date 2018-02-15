@@ -11,6 +11,7 @@ module.exports = function(command, flags) {
         zipPath: flags.source,
         isUpload: command === 'upload',
         isPublish: command === 'publish',
-        autoPublish: flags.autoPublish
+        autoPublish: flags.autoPublish,
+        trustedTesters: flags.trustedTesters
     };
 };
