@@ -1,6 +1,6 @@
 {
   "name": "chrome-webstore-upload-cli",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "CLI Utility to quickly upload + publish extensions to the Chrome Web Store",
   "repository": "https://github.com/DrewML/chrome-webstore-upload-cli",
   "bin": {
