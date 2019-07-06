@@ -14,6 +14,7 @@ The following projects use this package to facilitate auto-deployment of extensi
 - [OctoLinker](https://github.com/octolinker/browser-extension)
 - [Refined GitHub](https://github.com/sindresorhus/refined-github)
 - [Refined Twitter](https://github.com/sindresorhus/refined-twitter)
+- [Trello Bookmark](https://github.com/dospolov/trello-bookmark)
 
 ## Minimum node.js version
 
