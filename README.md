@@ -7,10 +7,8 @@ A CLI wrapper around the [Web Store Upload](https://github.com/DrewML/chrome-web
 The following projects use this package to facilitate auto-deployment of extensions
 - [GifHub](https://github.com/DrewML/GifHub)
 - [Octo Preview](https://github.com/DrewML/octo-preview)
-- [Running Redmine](https://github.com/paulmolluzzo/running-redmine)
 - [GhostText](https://github.com/GhostText/GhostText)
-- [GitHub Clean Feed](https://github.com/bfred-it/github-clean-feed)
-- [npm-hub](https://github.com/zeke/npm-hub)
+- [npmhub](https://github.com/npmhub/npmhub)
 - [OctoLinker](https://github.com/octolinker/browser-extension)
 - [Refined GitHub](https://github.com/sindresorhus/refined-github)
 - [Refined Twitter](https://github.com/sindresorhus/refined-twitter)
