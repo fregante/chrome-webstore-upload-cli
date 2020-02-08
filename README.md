@@ -60,3 +60,7 @@ $ webstore --help
     Publish extension (with CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN set as env variables)
     $ webstore publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 ```
+
+### Automated Deployement with Travis
+
+Refer to the [Travis autoupload guide](./Travis&#32;autoupload&#32;guide.md).
