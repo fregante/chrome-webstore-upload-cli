@@ -61,6 +61,6 @@ $ webstore --help
     $ webstore publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 ```
 
-### Automated Deployement with Travis
+### Automated Deployment with Travis
 
-Refer to the [Travis autoupload guide](./Travis&#32;autoupload&#32;guide.md).
+Refer to the [Travis autoupload guide](./Travis%20autoupload%20guide.md).
