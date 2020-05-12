@@ -46,10 +46,10 @@ $ webstore --help
 
   Options
     --source          Path to either a zip file, or a directory to be zipped (Defaults to cwd if not specified)
-    --extension-id       The ID of the Chrome Extension (environment variable EXTENSION_ID)
-    --client-id          OAuth2 Client ID (environment variable CLIENT_ID)
-    --client-secret      OAuth2 Client Secret (environment variable CLIENT_SECRET)
-    --refresh-token      OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
+    --extension-id      The ID of the Chrome Extension (environment variable EXTENSION_ID)
+    --client-id         OAuth2 Client ID (environment variable CLIENT_ID)
+    --client-secret     OAuth2 Client Secret (environment variable CLIENT_SECRET)
+    --refresh-token     OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
     --auto-publish      Can be used with the "upload" command
     --trusted-testers   Can be used with the "publish" command
 
