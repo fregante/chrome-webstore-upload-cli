@@ -31,6 +31,8 @@ npm install --save-dev chrome-webstore-upload-cli
 
 You will need a Google API `clientId`, a `clientSecret` and a `refreshToken`. Read [the guide.](https://github.com/DrewML/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md)
 
+You can also [set up Travis to automatically upload your extension.](./Travis%20autoupload%20guide.md)
+
 ## Usage
 
 ```
@@ -60,7 +62,3 @@ $ webstore --help
     Publish extension (with CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN set as env variables)
     $ webstore publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 ```
-
-### Automated Deployement with Travis
-
-Refer to the [Travis autoupload guide](./Travis&#32;autoupload&#32;guide.md).
