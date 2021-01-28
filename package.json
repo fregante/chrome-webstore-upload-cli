@@ -1,6 +1,6 @@
 {
   "name": "chrome-webstore-upload-cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "description": "CLI Utility to quickly upload + publish extensions to the Chrome Web Store",
   "repository": "https://github.com/DrewML/chrome-webstore-upload-cli",
@@ -21,7 +21,6 @@
     "cli"
   ],
   "author": "Andrew Levine",
-  "license": "MIT",
   "devDependencies": {
     "ava": "^0.14.0",
     "execa": "^0.4.0",
