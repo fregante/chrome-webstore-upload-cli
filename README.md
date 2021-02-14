@@ -12,6 +12,7 @@ The following projects use this package to facilitate auto-deployment of extensi
 - [OctoLinker](https://github.com/octolinker/browser-extension)
 - [Refined GitHub](https://github.com/sindresorhus/refined-github)
 - [Refined Twitter](https://github.com/sindresorhus/refined-twitter)
+- [FACEIT Enhancer](https://github.com/faceit-enhancer/faceit-enhancer)
 
 ## Minimum node.js version
 
