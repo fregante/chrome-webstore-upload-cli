@@ -1,13 +1,11 @@
 # Web Store Upload CLI
 
-[![CI status](https://travis-ci.org/DrewML/chrome-webstore-upload-cli.svg)](https://travis-ci.org/DrewML/chrome-webstore-upload-cli)
-
-A CLI wrapper around the [Web Store Upload](https://github.com/DrewML/chrome-webstore-upload) module.
+A CLI wrapper around the [Web Store Upload](https://github.com/fregante/chrome-webstore-upload) module.
 
 The following projects use this package to facilitate auto-deployment of extensions
 - [GifHub](https://github.com/DrewML/GifHub)
 - [Octo Preview](https://github.com/DrewML/octo-preview)
-- [GhostText](https://github.com/GhostText/GhostText)
+- [GhostText](https://github.com/fregante/GhostText)
 - [npmhub](https://github.com/npmhub/npmhub)
 - [OctoLinker](https://github.com/octolinker/browser-extension)
 - [Refined GitHub](https://github.com/sindresorhus/refined-github)
@@ -30,7 +28,7 @@ npm install --save-dev chrome-webstore-upload-cli
 
 ## Setup
 
-You will need a Google API `clientId`, a `clientSecret` and a `refreshToken`. Read [the guide.](https://github.com/DrewML/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md)
+You will need a Google API `clientId`, a `clientSecret` and a `refreshToken`. Read [the guide.](https://github.com/fregante/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md)
 
 You can also [set up Travis to automatically upload your extension.](./Travis%20autoupload%20guide.md)
 
