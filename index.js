@@ -37,9 +37,14 @@ const cli = meow(`
       Publish extension (with CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN set as env variables)
       $ webstore publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 `, {
-    string: ['_'],
-    default: {
-        source: process.cwd()
+    flags: {
+        _: {
+            type: 'string'
+        },
+        source: {
+            type: 'string',
+            default: process.cwd()
+        }
     }
 });
 
