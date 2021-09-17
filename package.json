@@ -36,6 +36,9 @@
     "recursive-readdir": "^2.0.0",
     "yazl": "^2.3.1"
   },
+  "engines": {
+    "node": ">=12.17"
+  },
   "ava": {
     "files": [
       "!test/fixtures/**",
