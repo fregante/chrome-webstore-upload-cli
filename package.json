@@ -22,7 +22,7 @@
   ],
   "author": "Andrew Levine",
   "devDependencies": {
-    "ava": "^1.4.1",
+    "ava": "^2.4.0",
     "execa": "^0.4.0",
     "is-stream": "^1.1.0"
   },
@@ -35,5 +35,11 @@
     "pify": "^2.3.0",
     "recursive-readdir": "^2.0.0",
     "yazl": "^2.3.1"
+  },
+  "ava": {
+    "files": [
+      "!test/fixtures/**",
+      "!test/helpers/**"
+    ]
   }
 }
