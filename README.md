@@ -1,36 +1,23 @@
-# Web Store Upload CLI
+# chrome-webstore-upload-cli
+
+> Upload/Publish Chrome Web Store extensions from the CLI
 
 A CLI wrapper around the [Web Store Upload](https://github.com/fregante/chrome-webstore-upload) module.
-
-The following projects use this package to facilitate auto-deployment of extensions
-- [GifHub](https://github.com/DrewML/GifHub)
-- [Octo Preview](https://github.com/DrewML/octo-preview)
-- [GhostText](https://github.com/fregante/GhostText)
-- [npmhub](https://github.com/npmhub/npmhub)
-- [OctoLinker](https://github.com/octolinker/browser-extension)
-- [Refined GitHub](https://github.com/sindresorhus/refined-github)
-- [Refined Twitter](https://github.com/sindresorhus/refined-twitter)
-- [FACEIT Enhancer](https://github.com/faceit-enhancer/faceit-enhancer)
-
-## Minimum node.js version
-
-You must be using a `node.js` version >= `6.0.0`.
 
 ## Install
 
 ```shell
-## Globally
-npm install -g chrome-webstore-upload-cli
-
-## In a project
-npm install --save-dev chrome-webstore-upload-cli
+npm install chrome-webstore-upload-cli
 ```
 
 ## Setup
 
 You will need a Google API `clientId`, a `clientSecret` and a `refreshToken`. Read [the guide.](https://github.com/fregante/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md)
 
-You can also [set up Travis to automatically upload your extension.](./Travis%20autoupload%20guide.md)
+You can also automatically upload your extension on:
+
+- GitHub Actions, [workflow including uploading to Mozilla Addons](https://github.com/fregante/ghatemplates/blob/main/webext/release.yml)
+- Travis, [guide](./Travis%20autoupload%20guide.md)
 
 ## Usage
 
@@ -61,3 +48,21 @@ $ webstore --help
     Publish extension (with CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN set as env variables)
     $ webstore publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 ```
+
+## Examples
+
+The following projects use this package to facilitate auto-deployment of extensions
+- [GifHub](https://github.com/DrewML/GifHub)
+- [Octo Preview](https://github.com/DrewML/octo-preview)
+- [GhostText](https://github.com/fregante/GhostText)
+- [npmhub](https://github.com/npmhub/npmhub)
+- [OctoLinker](https://github.com/octolinker/browser-extension)
+- [Refined GitHub](https://github.com/sindresorhus/refined-github)
+- [FACEIT Enhancer](https://github.com/faceit-enhancer/faceit-enhancer)
+
+## Related
+
+- [webext-storage-cache](https://github.com/fregante/webext-storage-cache) - Map-like promised cache storage with expiration. Chrome and Firefox
+- [webext-dynamic-content-scripts](https://github.com/fregante/webext-dynamic-content-scripts) - Automatically registers your content_scripts on domains added via permission.request
+- [Awesome-WebExtensions](https://github.com/fregante/Awesome-WebExtensions) - A curated list of awesome resources for WebExtensions development.
+- [More…](https://github.dihe.moe/fregante/webext-fun)
