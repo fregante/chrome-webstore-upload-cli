@@ -13,7 +13,7 @@ function stubAddFile(stub) {
 }
 
 function getExtensionFixtureFiles(name) {
-    return pify(recursiveDir)(`./fixtures/${name}`);
+    return pify(recursiveDir)(`./test/fixtures/${name}`);
 }
 
 test('Rejects when provided invalid dir', async t => {
@@ -26,7 +26,7 @@ test('Rejects when provided invalid dir', async t => {
 });
 
 test('Resolves to a readable stream', async t => {
-    const shouldBeStream = await zipdir('fixtures/without-junk');
+    const shouldBeStream = await zipdir('./test/fixtures/without-junk');
     t.true(readable(shouldBeStream));
 });
 
@@ -36,7 +36,7 @@ test.serial('Adds each file in dir', async t => {
 
     const resetStub = stubAddFile(() => t.pass());
 
-    await zipdir('fixtures/without-junk');
+    await zipdir('./test/fixtures/without-junk');
     resetStub();
 });
 
@@ -50,7 +50,7 @@ test.serial('Ignores OS junk files', async t => {
 
     const resetStub = stubAddFile(() => t.pass());
 
-    await zipdir('fixtures/with-junk');
+    await zipdir('./test/fixtures/with-junk');
     resetStub();
 });
 

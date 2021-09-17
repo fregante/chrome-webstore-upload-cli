@@ -22,7 +22,7 @@
   ],
   "author": "Andrew Levine",
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^1.4.1",
     "execa": "^0.4.0",
     "is-stream": "^1.1.0"
   },
