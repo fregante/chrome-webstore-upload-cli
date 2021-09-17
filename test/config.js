@@ -1,5 +1,5 @@
-import test from 'ava';
-import createConfig from '../config';
+const test = require('ava');
+const createConfig = require('../config');
 
 test('Favors params over env vars', t => {
     process.env.EXTENSION_ID = 123;

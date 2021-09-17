@@ -1,9 +1,9 @@
-import test from 'ava';
-import pify from 'pify';
-import zipdir from '../zipdir';
-import { ZipFile } from 'yazl';
-import { readable } from 'is-stream';
-import recursiveDir from 'recursive-readdir';
+const test = require('ava');
+const pify = require('pify');
+const zipdir = require('../zipdir');
+const { ZipFile } = require('yazl');
+const { readable } = require('is-stream');
+const recursiveDir = require('recursive-readdir');
 
 function stubAddFile(stub) {
     const old = ZipFile.prototype.addFile;
@@ -13,7 +13,7 @@ function stubAddFile(stub) {
 }
 
 function getExtensionFixtureFiles(name) {
-    return pify(recursiveDir)(`./fixtures/${name}`);
+    return pify(recursiveDir)(`./test/fixtures/${name}`);
 }
 
 test('Rejects when provided invalid dir', async t => {
@@ -26,7 +26,7 @@ test('Rejects when provided invalid dir', async t => {
 });
 
 test('Resolves to a readable stream', async t => {
-    const shouldBeStream = await zipdir('fixtures/without-junk');
+    const shouldBeStream = await zipdir('./test/fixtures/without-junk');
     t.true(readable(shouldBeStream));
 });
 
@@ -36,7 +36,7 @@ test.serial('Adds each file in dir', async t => {
 
     const resetStub = stubAddFile(() => t.pass());
 
-    await zipdir('fixtures/without-junk');
+    await zipdir('./test/fixtures/without-junk');
     resetStub();
 });
 
@@ -50,7 +50,7 @@ test.serial('Ignores OS junk files', async t => {
 
     const resetStub = stubAddFile(() => t.pass());
 
-    await zipdir('fixtures/with-junk');
+    await zipdir('./test/fixtures/with-junk');
     resetStub();
 });
 

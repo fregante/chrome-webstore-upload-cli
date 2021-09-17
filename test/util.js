@@ -1,6 +1,6 @@
-import test from 'ava';
-import util from '../util';
-import stubs from './helpers/stubs';
+const test = require('ava');
+const util = require('../util');
+const stubs = require('./helpers/stubs');
 
 const { stubProcessExit, stubConsoleLog } = stubs;
 

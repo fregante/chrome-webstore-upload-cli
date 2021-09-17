@@ -22,7 +22,7 @@
   ],
   "author": "Andrew Levine",
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^3.15.0",
     "execa": "^0.4.0",
     "is-stream": "^1.1.0"
   },
@@ -30,10 +30,19 @@
     "chalk": "^1.1.3",
     "chrome-webstore-upload": "^0.4.3",
     "junk": "^1.0.2",
-    "meow": "^5.0.0",
+    "meow": "^9.0.0",
     "ora": "^0.2.3",
     "pify": "^2.3.0",
     "recursive-readdir": "^2.0.0",
     "yazl": "^2.3.1"
+  },
+  "engines": {
+    "node": ">=12.17"
+  },
+  "ava": {
+    "files": [
+      "!test/fixtures/**",
+      "!test/helpers/**"
+    ]
   }
 }

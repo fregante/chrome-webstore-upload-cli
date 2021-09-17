@@ -1,5 +1,5 @@
-import test from 'ava';
-import execa from 'execa';
+const test = require('ava');
+const execa = require('execa');
 
 function env(vars = {}) {
     return Object.assign({
@@ -12,7 +12,7 @@ function env(vars = {}) {
 
 test('Exits w/ message when param required by "Web Store Upload" is not provided', async t => {
     try {
-        await execa('../index.js', ['upload', '--source', 'test.zip']);
+        await execa('./index.js', ['upload', '--source', 'test.zip']);
         t.fail('Should have errored');
     } catch(err) {
         t.true(/Option ".+" is required/.test(err.message));
@@ -21,7 +21,7 @@ test('Exits w/ message when param required by "Web Store Upload" is not provided
 
 test('It should not exit when --source param is not provided', async t => {
     try {
-        await execa('../index.js', ['upload'], {
+        await execa('./index.js', ['upload'], {
             env: env()
         });
         t.true();
