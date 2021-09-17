@@ -1,9 +1,9 @@
-import test from 'ava';
-import pify from 'pify';
-import zipdir from '../zipdir';
-import { ZipFile } from 'yazl';
-import { readable } from 'is-stream';
-import recursiveDir from 'recursive-readdir';
+const test = require('ava');
+const pify = require('pify');
+const zipdir = require('../zipdir');
+const { ZipFile } = require('yazl');
+const { readable } = require('is-stream');
+const recursiveDir = require('recursive-readdir');
 
 function stubAddFile(stub) {
     const old = ZipFile.prototype.addFile;
