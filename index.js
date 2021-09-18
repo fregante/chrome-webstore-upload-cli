@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
-const path = require('path');
-const ora = require('ora');
-const meow = require('meow');
-const { green, red, yellow } = require('chalk');
-const createConfig = require('./config');
-const { upload, publish, fetchToken } = require('./wrapper');
-const {
+import path from 'node:path';
+import ora from 'ora';
+import meow from 'meow';
+import chalk from 'chalk';
+import createConfig from './config.js';
+import { upload, publish, fetchToken } from './wrapper.js';
+import {
     isUploadSuccess,
     exitWithUploadFailure,
     exitWithPublishStatus,
     validateInput,
-} = require('./util');
+} from './util.js';
 
 const cli = meow(`
     Usage
@@ -37,10 +37,8 @@ const cli = meow(`
       Publish extension (with CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN set as env variables)
       $ webstore publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 `, {
+    importMeta: import.meta,
     flags: {
-        _: {
-            type: 'string',
-        },
         source: {
             type: 'string',
             default: process.cwd(),
@@ -50,7 +48,7 @@ const cli = meow(`
 
 const preliminaryValidation = validateInput(cli.input, cli.flags);
 if (preliminaryValidation.error) {
-    console.error(red(preliminaryValidation.error));
+    console.error(chalk.red(preliminaryValidation.error));
     cli.showHelp(1);
 }
 
@@ -105,7 +103,7 @@ function doUpload() {
             return exitWithUploadFailure(res);
         }
 
-        console.log(green('Upload Completed'));
+        console.log(chalk.green('Upload Completed'));
     }).catch(errorHandler);
 }
 
@@ -120,10 +118,10 @@ function doPublish() {
 
 function errorHandler(err) {
     spinner.stop();
-    console.error(red(err.message));
+    console.error(chalk.red(err.message));
 
     if (err.response && err.response.body) {
-        console.error(yellow(JSON.stringify(err.response.body, null, 4)));
+        console.error(chalk.yellow(JSON.stringify(err.response.body, null, 4)));
     }
 
     process.exit(1);

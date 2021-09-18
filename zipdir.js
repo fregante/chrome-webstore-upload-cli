@@ -1,19 +1,16 @@
-const { basename } = require('path');
-const junk = require('junk');
-const yazl = require('yazl');
-const pify = require('pify');
-const recursiveDir = require('recursive-readdir');
-const { zipPath } = require('./util');
+import { basename } from 'node:path';
+import { isNotJunk } from 'junk';
+import yazl from 'yazl';
+import recursiveDir from 'recursive-readdir';
+import { zipPath } from './util.js';
 
-module.exports = function zipStreamFromDir(dir) {
-    return pify(recursiveDir)(dir).then(files => {
+export default function zipStreamFromDir(dir) {
+    return recursiveDir(dir).then(files => {
         const zip = new yazl.ZipFile();
         for (const file of files) {
-            if (junk.is(basename(file))) {
-                continue;
+            if (isNotJunk(basename(file))) {
+                zip.addFile(file, zipPath(dir, file));
             }
-
-            zip.addFile(file, zipPath(dir, file));
         }
 
         return new Promise(resolve => {
@@ -22,4 +19,4 @@ module.exports = function zipStreamFromDir(dir) {
             });
         });
     });
-};
+}

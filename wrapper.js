@@ -1,52 +1,47 @@
-const fs = require('fs');
-const path = require('path');
-const webstore = require('chrome-webstore-upload');
-const zipdir = require('./zipdir');
-
-function getClient(apiConfig) {
-    return webstore(apiConfig);
-}
+import fs from 'node:fs';
+import path from 'node:path';
+import getClient from 'chrome-webstore-upload';
+import zipdir from './zipdir.js';
 
 const isZip = filepath => path.extname(filepath) === '.zip';
 
-module.exports = {
-    upload({ apiConfig, zipPath, token }) {
-        let client;
-        try {
-            client = getClient(apiConfig);
-        } catch (error) {
-            return Promise.reject(error);
-        }
+export function upload({ apiConfig, zipPath, token }) {
+    let client;
+    try {
+        client = getClient(apiConfig);
+    } catch (error) {
+        return Promise.reject(error);
+    }
 
-        const fullPath = path.join(process.cwd(), zipPath);
+    const fullPath = path.join(process.cwd(), zipPath);
 
-        if (isZip(fullPath)) {
-            const zipStream = fs.createReadStream(fullPath);
-            return client.uploadExisting(zipStream, token);
-        }
+    if (isZip(fullPath)) {
+        const zipStream = fs.createReadStream(fullPath);
+        return client.uploadExisting(zipStream, token);
+    }
 
-        return zipdir(zipPath).then(zipStream => client.uploadExisting(zipStream, token));
-    },
+    return zipdir(zipPath).then(zipStream => client.uploadExisting(zipStream, token));
+}
 
-    publish({ apiConfig, token }, publishTarget) {
-        let client;
-        try {
-            client = getClient(apiConfig);
-        } catch (error) {
-            return Promise.reject(error);
-        }
+export function publish({ apiConfig, token }, publishTarget) {
+    let client;
+    try {
+        client = getClient(apiConfig);
+    } catch (error) {
+        return Promise.reject(error);
+    }
 
-        return client.publish(publishTarget, token);
-    },
+    return client.publish(publishTarget, token);
+}
 
-    fetchToken(apiConfig) {
-        let client;
-        try {
-            client = getClient(apiConfig);
-        } catch (error) {
-            return Promise.reject(error);
-        }
+export function fetchToken(apiConfig) {
+    let client;
+    try {
+        client = getClient(apiConfig);
+    } catch (error) {
+        return Promise.reject(error);
+    }
 
-        return client.fetchToken();
-    },
-};
+    return client.fetchToken();
+}
+
