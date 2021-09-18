@@ -29,7 +29,6 @@
     "xo": "^0.44.0"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
     "chrome-webstore-upload": "^0.5.0",
     "junk": "^4.0.0",
     "meow": "^10.1.1",
