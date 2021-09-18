@@ -5,7 +5,7 @@
   "description": "CLI Utility to quickly upload + publish extensions to the Chrome Web Store",
   "repository": "fregante/chrome-webstore-upload-cli",
   "bin": {
-    "webstore": "index.js"
+    "chrome-webstore-upload": "cli.js"
   },
   "type": "module",
   "scripts": {
