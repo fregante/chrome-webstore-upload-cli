@@ -27,6 +27,6 @@ test('It should not exit when --source param is not provided', async t => {
         });
         t.pass();
     } catch (error) {
-        t.regex(error.message, /Response code 401 \(Unauthorized\)/);
+        t.regex(error.message, /The OAuth client was not found/);
     }
 });

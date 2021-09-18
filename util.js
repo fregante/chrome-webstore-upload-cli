@@ -1,24 +1,17 @@
-import process from 'node:process';
 import { relative } from 'node:path';
 
 export function isUploadSuccess(response) {
     return response.uploadState === 'SUCCESS';
 }
 
-export function exitWithUploadFailure(item) {
-    const firstError = item.itemError[0];
-    console.log(`Error Code: ${firstError.error_code}`);
-    console.log(`Details: ${firstError.error_detail}`);
-    process.exit(1);
-}
+export function handlePublishStatus(item) {
+    const [firstStatus] = item.status;
+    if (firstStatus === 'OK') {
+        console.log('Publish successful');
+        return;
+    }
 
-export function exitWithPublishStatus(item) {
-    const firstStatus = item.status[0];
-    // TODO: Look at item stucture and determine where "detail" actually is,
-    // since it's clearly not the same as the line right above this
-    // const firstStatusDetail = item.status[0];
-    console.log(`Publish Status: ${firstStatus}`);
-    process.exit(0);
+    throw item;
 }
 
 export function validateInput(input) {
