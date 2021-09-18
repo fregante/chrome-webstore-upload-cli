@@ -58,10 +58,6 @@
         "always"
       ],
       "camelcase": "off",
-      "func-names": "off",
-      "node/prefer-global/process": "off",
-      "promise/prefer-await-to-then": "off",
-      "unicorn/prevent-abbreviations": "off",
       "unicorn/no-process-exit": "off"
     }
   }

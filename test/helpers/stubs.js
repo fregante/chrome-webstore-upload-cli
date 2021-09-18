@@ -1,3 +1,4 @@
+import process from 'node:process';
 
 export function stubProcessExit(stub) {
     const old = process.exit;

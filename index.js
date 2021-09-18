@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import path from 'node:path';
+import process from 'node:process';
 import ora from 'ora';
 import meow from 'meow';
 import chalk from 'chalk';
@@ -67,70 +68,70 @@ const spinnerStart = text => {
     return spinner.start();
 };
 
-function doAutoPublish() {
+async function doAutoPublish() {
     spinnerStart('Fetching token');
 
-    fetchToken(apiConfig).then(token => {
-        spinnerStart(`Uploading ${path.basename(zipPath)}`);
-
-        return upload({
-            apiConfig,
-            token,
-            zipPath,
-        }).then(uploadRes => {
-            if (!isUploadSuccess(uploadRes)) {
-                spinner.stop();
-                return exitWithUploadFailure(uploadRes);
-            }
-
-            spinnerStart('Publishing');
-            return publish({ apiConfig, token }, trustedTesters && 'trustedTesters').then(publishRes => {
-                spinner.stop();
-                exitWithPublishStatus(publishRes);
-            });
-        });
-    }).catch(errorHandler);
-}
-
-function doUpload() {
+    const token = await fetchToken(apiConfig);
     spinnerStart(`Uploading ${path.basename(zipPath)}`);
-    upload({
+
+    const uploadResponse = await upload({
         apiConfig,
+        token,
         zipPath,
-    }).then(res => {
+    });
+    if (!isUploadSuccess(uploadResponse)) {
         spinner.stop();
-        if (!isUploadSuccess(res)) {
-            return exitWithUploadFailure(res);
-        }
-
-        console.log(chalk.green('Upload Completed'));
-    }).catch(errorHandler);
-}
-
-function doPublish() {
-    spinnerStart('Publishing');
-
-    publish({ apiConfig }, trustedTesters && 'trustedTesters').then(res => {
-        spinner.stop();
-        exitWithPublishStatus(res);
-    }).catch(errorHandler);
-}
-
-function errorHandler(err) {
-    spinner.stop();
-    console.error(chalk.red(err.message));
-
-    if (err.response && err.response.body) {
-        console.error(chalk.yellow(JSON.stringify(err.response.body, null, 4)));
+        return exitWithUploadFailure(uploadResponse);
     }
 
-    process.exit(1);
+    spinnerStart('Publishing');
+    const publishResponse = await publish({ apiConfig, token }, trustedTesters && 'trustedTesters');
+    spinner.stop();
+    exitWithPublishStatus(publishResponse);
 }
 
-if (isUpload && autoPublish) {
-    doAutoPublish();
-} else if (isUpload) {
-    doUpload();
-} else if (isPublish) {
-    doPublish();
+async function doUpload() {
+    spinnerStart(`Uploading ${path.basename(zipPath)}`);
+    const response = await upload({
+        apiConfig,
+        zipPath,
+    });
+
+    spinner.stop();
+    if (!isUploadSuccess(response)) {
+        return exitWithUploadFailure(response);
+    }
+
+    console.log(chalk.green('Upload Completed'));
 }
+
+async function doPublish() {
+    spinnerStart('Publishing');
+
+    const response = await publish({ apiConfig }, trustedTesters && 'trustedTesters');
+    spinner.stop();
+    exitWithPublishStatus(response);
+}
+
+function errorHandler(error) {
+    spinner.stop();
+    console.error(chalk.red(error.message));
+
+    if (error.response && error.response.body) {
+        console.error(chalk.yellow(JSON.stringify(error.response.body, null, 4)));
+    }
+
+    process.exitCode = 1;
+}
+
+async function init() {
+    if (isUpload && autoPublish) {
+        await doAutoPublish();
+    } else if (isUpload) {
+        await doUpload();
+    } else if (isPublish) {
+        await doPublish();
+    }
+}
+
+init().catch(errorHandler);
