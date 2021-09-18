@@ -1,5 +1,5 @@
-const test = require('ava');
-const execa = require('execa');
+import test from 'ava';
+import execa from 'execa';
 
 function env(vars = {}) {
     return {

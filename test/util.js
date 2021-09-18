@@ -1,11 +1,12 @@
-const test = require('ava');
-const util = require('../util');
-const stubs = require('./helpers/stubs');
-
-const { stubProcessExit, stubConsoleLog } = stubs;
+import test from 'ava';
+import { isUploadSuccess,
+    exitWithUploadFailure,
+    exitWithPublishStatus,
+    zipPath } from '../util.js';
+import { stubProcessExit, stubConsoleLog } from './helpers/stubs.js';
 
 test('isUploadSuccess', t => {
-    t.true(util.isUploadSuccess({
+    t.true(isUploadSuccess({
         uploadState: 'SUCCESS',
     }));
 });
@@ -27,7 +28,7 @@ test('exitWithUploadFailure', t => {
         }
     });
 
-    util.exitWithUploadFailure({
+    exitWithUploadFailure({
         itemError: [{
             error_code: errorCode,
             error_detail: errorDetail,
@@ -50,7 +51,7 @@ test('exitWithPublishStatus', t => {
         }
     });
 
-    util.exitWithPublishStatus({
+    exitWithPublishStatus({
         status: [status],
     });
 
@@ -82,6 +83,6 @@ test('zipPath', t => {
     }];
 
     for (const { root, file, expected } of pathMappings) {
-        t.is(util.zipPath(root, file), expected);
+        t.is(zipPath(root, file), expected);
     }
 });

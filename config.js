@@ -1,4 +1,4 @@
-module.exports = function (command, flags) {
+export default function getConfig(command, flags) {
     const apiConfig = {
         extensionId: flags.extensionId || process.env.EXTENSION_ID,
         clientId: flags.clientId || process.env.CLIENT_ID,
@@ -14,4 +14,4 @@ module.exports = function (command, flags) {
         autoPublish: flags.autoPublish,
         trustedTesters: flags.trustedTesters,
     };
-};
+}
