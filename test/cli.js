@@ -13,7 +13,7 @@ function env(vars = {}) {
 
 test('Exits w/ message when param required by "Web Store Upload" is not provided', async t => {
     try {
-        await execa('./index.js', ['upload', '--source', 'test.zip']);
+        await execa('./cli.js', ['upload', '--source', 'test.zip']);
         t.fail('Should have errored');
     } catch (error) {
         t.regex(error.message, /Option ".+" is required/);
@@ -22,7 +22,7 @@ test('Exits w/ message when param required by "Web Store Upload" is not provided
 
 test('It should not exit when --source param is not provided', async t => {
     try {
-        await execa('./index.js', ['upload'], {
+        await execa('./cli.js', ['upload'], {
             env: env(),
         });
         t.pass();
