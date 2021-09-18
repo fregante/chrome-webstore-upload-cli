@@ -1,11 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import process from 'node:process';
 import getClient from 'chrome-webstore-upload';
 import zipdir from './zipdir.js';
 
 const isZip = filepath => path.extname(filepath) === '.zip';
 
-export function upload({ apiConfig, zipPath, token }) {
+export async function upload({ apiConfig, zipPath, token }) {
     let client;
     try {
         client = getClient(apiConfig);
@@ -20,28 +21,17 @@ export function upload({ apiConfig, zipPath, token }) {
         return client.uploadExisting(zipStream, token);
     }
 
-    return zipdir(zipPath).then(zipStream => client.uploadExisting(zipStream, token));
+    const zipStream = await zipdir(zipPath);
+    return client.uploadExisting(zipStream, token);
 }
 
-export function publish({ apiConfig, token }, publishTarget) {
-    let client;
-    try {
-        client = getClient(apiConfig);
-    } catch (error) {
-        return Promise.reject(error);
-    }
-
+export async function publish({ apiConfig, token }, publishTarget) {
+    const client = getClient(apiConfig);
     return client.publish(publishTarget, token);
 }
 
-export function fetchToken(apiConfig) {
-    let client;
-    try {
-        client = getClient(apiConfig);
-    } catch (error) {
-        return Promise.reject(error);
-    }
-
+export async function fetchToken(apiConfig) {
+    const client = getClient(apiConfig);
     return client.fetchToken();
 }
 

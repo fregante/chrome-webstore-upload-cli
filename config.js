@@ -1,3 +1,5 @@
+import process from 'node:process';
+
 export default function getConfig(command, flags) {
     const apiConfig = {
         extensionId: flags.extensionId || process.env.EXTENSION_ID,

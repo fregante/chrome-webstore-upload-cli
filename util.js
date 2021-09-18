@@ -1,7 +1,8 @@
+import process from 'node:process';
 import { relative } from 'node:path';
 
-export function isUploadSuccess(res) {
-    return res.uploadState === 'SUCCESS';
+export function isUploadSuccess(response) {
+    return response.uploadState === 'SUCCESS';
 }
 
 export function exitWithUploadFailure(item) {
