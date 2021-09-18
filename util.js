@@ -1,4 +1,4 @@
-const relative = require('path').relative;
+const { relative } = require('path');
 
 module.exports = {
     isUploadSuccess(res) {
@@ -18,12 +18,11 @@ module.exports = {
         // since it's clearly not the same as the line right above this
         // const firstStatusDetail = item.status[0];
         console.log(`Publish Status: ${firstStatus}`);
-        // console.log(`Details: ${firstStatusDetail}`);
         process.exit(0);
     },
 
-    validateInput(input, { source }) {
-        if (!input.length) {
+    validateInput(input) {
+        if (input.length === 0) {
             return { error: 'Must specify "upload" or "publish"' };
         }
 
@@ -36,5 +35,5 @@ module.exports = {
 
     zipPath(root, file) {
         return relative(root, file);
-    }
+    },
 };

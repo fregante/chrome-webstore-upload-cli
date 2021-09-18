@@ -1,9 +1,9 @@
-module.exports = function(command, flags) {
+module.exports = function (command, flags) {
     const apiConfig = {
         extensionId: flags.extensionId || process.env.EXTENSION_ID,
         clientId: flags.clientId || process.env.CLIENT_ID,
         clientSecret: flags.clientSecret || process.env.CLIENT_SECRET,
-        refreshToken: flags.refreshToken || process.env.REFRESH_TOKEN
+        refreshToken: flags.refreshToken || process.env.REFRESH_TOKEN,
     };
 
     return {
@@ -12,6 +12,6 @@ module.exports = function(command, flags) {
         isUpload: command === 'upload',
         isPublish: command === 'publish',
         autoPublish: flags.autoPublish,
-        trustedTesters: flags.trustedTesters
+        trustedTesters: flags.trustedTesters,
     };
 };

@@ -6,7 +6,7 @@ const { stubProcessExit, stubConsoleLog } = stubs;
 
 test('isUploadSuccess', t => {
     t.true(util.isUploadSuccess({
-        uploadState: 'SUCCESS'
+        uploadState: 'SUCCESS',
     }));
 });
 
@@ -17,12 +17,12 @@ test('exitWithUploadFailure', t => {
     const errorDetail = 'This is detailed!';
 
     const resetExit = stubProcessExit(code => t.is(code, 1));
-    const resetLog = stubConsoleLog(val => {
-        if (val === `Error Code: ${errorCode}`) {
+    const resetLog = stubConsoleLog(value => {
+        if (value === `Error Code: ${errorCode}`) {
             t.pass('Error code');
         }
 
-        if (val === `Details: ${errorDetail}`) {
+        if (value === `Details: ${errorDetail}`) {
             t.pass('Error details');
         }
     });
@@ -30,8 +30,8 @@ test('exitWithUploadFailure', t => {
     util.exitWithUploadFailure({
         itemError: [{
             error_code: errorCode,
-            error_detail: errorDetail
-        }]
+            error_detail: errorDetail,
+        }],
     });
 
     resetExit();
@@ -44,14 +44,14 @@ test('exitWithPublishStatus', t => {
     const status = 'Success';
 
     const resetExit = stubProcessExit(code => t.is(code, 0));
-    const resetLog = stubConsoleLog(val => {
-        if (val === `Publish Status: ${status}`) {
+    const resetLog = stubConsoleLog(value => {
+        if (value === `Publish Status: ${status}`) {
             t.pass('Publish Status');
         }
     });
 
     util.exitWithPublishStatus({
-        status: [status]
+        status: [status],
     });
 
     resetExit();
@@ -62,26 +62,26 @@ test('zipPath', t => {
     const pathMappings = [{
         root: 'extension',
         file: 'extension/manifest.json',
-        expected: 'manifest.json'
+        expected: 'manifest.json',
     }, {
         root: 'extension/',
-        file: 'extension/foo/bar.js',
-        expected: 'foo/bar.js'
+        file: 'extension/foo/bar',
+        expected: 'foo/bar',
     }, {
         root: '.',
         file: './manifest.json',
-        expected: 'manifest.json'
+        expected: 'manifest.json',
     }, {
         root: 'extension/foo',
         file: 'extension/foo/manifest.json',
-        expected: 'manifest.json'
+        expected: 'manifest.json',
     }, {
         root: 'extension/foo',
-        file: 'extension/foo/bar/biz.js',
-        expected: 'bar/biz.js'
+        file: 'extension/foo/bar/biz',
+        expected: 'bar/biz',
     }];
 
-    pathMappings.forEach(({ root, file, expected }) =>{
+    for (const { root, file, expected } of pathMappings) {
         t.is(util.zipPath(root, file), expected);
-    });
+    }
 });

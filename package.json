@@ -24,7 +24,8 @@
   "devDependencies": {
     "ava": "^3.15.0",
     "execa": "^0.4.0",
-    "is-stream": "^1.1.0"
+    "is-stream": "^1.1.0",
+    "xo": "^0.44.0"
   },
   "dependencies": {
     "chalk": "^1.1.3",
@@ -39,10 +40,32 @@
   "engines": {
     "node": ">=12.17"
   },
+  "contributors": [
+    "Andrew Levine",
+    "Federico Brigante <me@fregante.com> (https://fregante.com)"
+  ],
   "ava": {
     "files": [
       "!test/fixtures/**",
       "!test/helpers/**"
     ]
+  },
+  "xo": {
+    "space": 4,
+    "rules": {
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "camelcase": "off",
+      "func-names": "off",
+      "import/extensions": "off",
+      "node/prefer-global/process": "off",
+      "promise/prefer-await-to-then": "off",
+      "unicorn/prevent-abbreviations": "off",
+      "unicorn/no-process-exit": "off",
+      "unicorn/import-style": "off",
+      "unicorn/prefer-module": "off"
+    }
   }
 }

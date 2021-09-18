@@ -1,15 +1,17 @@
 const test = require('ava');
 const pify = require('pify');
-const zipdir = require('../zipdir');
 const { ZipFile } = require('yazl');
 const { readable } = require('is-stream');
 const recursiveDir = require('recursive-readdir');
+const zipdir = require('../zipdir');
 
 function stubAddFile(stub) {
     const old = ZipFile.prototype.addFile;
     ZipFile.prototype.addFile = stub;
 
-    return () => ZipFile.prototype.addFile = old;
+    return () => {
+        ZipFile.prototype.addFile = old;
+    };
 }
 
 function getExtensionFixtureFiles(name) {
@@ -20,7 +22,7 @@ test('Rejects when provided invalid dir', async t => {
     try {
         await zipdir('foo');
         t.fail('Did not reject');
-    } catch(e) {
+    } catch {
         t.pass('Rejected');
     }
 });
@@ -43,7 +45,7 @@ test.serial('Adds each file in dir', async t => {
 test.serial('Ignores OS junk files', async t => {
     const junkFiles = [
         '.DS_STORE',
-        'Thumbs.db'
+        'Thumbs.db',
     ];
     const files = await getExtensionFixtureFiles('with-junk');
     t.plan(files.length - junkFiles.length);

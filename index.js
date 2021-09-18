@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const ora = require('ora');
 const path = require('path');
+const ora = require('ora');
 const meow = require('meow');
 const { green, red, yellow } = require('chalk');
 const createConfig = require('./config');
@@ -10,7 +10,7 @@ const {
     isUploadSuccess,
     exitWithUploadFailure,
     exitWithPublishStatus,
-    validateInput
+    validateInput,
 } = require('./util');
 
 const cli = meow(`
@@ -39,13 +39,13 @@ const cli = meow(`
 `, {
     flags: {
         _: {
-            type: 'string'
+            type: 'string',
         },
         source: {
             type: 'string',
-            default: process.cwd()
-        }
-    }
+            default: process.cwd(),
+        },
+    },
 });
 
 const preliminaryValidation = validateInput(cli.input, cli.flags);
@@ -60,16 +60,16 @@ const {
     isUpload,
     isPublish,
     autoPublish,
-    trustedTesters
+    trustedTesters,
 } = createConfig(cli.input[0], cli.flags);
 
 const spinner = ora();
-const spinnerStart = (text) => {
+const spinnerStart = text => {
     spinner.text = text;
     return spinner.start();
 };
 
-if (isUpload && autoPublish) {
+function doAutoPublish() {
     spinnerStart('Fetching token');
 
     fetchToken(apiConfig).then(token => {
@@ -78,7 +78,7 @@ if (isUpload && autoPublish) {
         return upload({
             apiConfig,
             token,
-            zipPath
+            zipPath,
         }).then(uploadRes => {
             if (!isUploadSuccess(uploadRes)) {
                 spinner.stop();
@@ -90,26 +90,26 @@ if (isUpload && autoPublish) {
                 spinner.stop();
                 exitWithPublishStatus(publishRes);
             });
-        })
+        });
     }).catch(errorHandler);
-
-    return;
 }
 
-if (isUpload) {
+function doUpload() {
     spinnerStart(`Uploading ${path.basename(zipPath)}`);
     upload({
         apiConfig,
-        zipPath
+        zipPath,
     }).then(res => {
         spinner.stop();
-        if (!isUploadSuccess(res)) return exitWithUploadFailure(res);
+        if (!isUploadSuccess(res)) {
+            return exitWithUploadFailure(res);
+        }
 
         console.log(green('Upload Completed'));
     }).catch(errorHandler);
 }
 
-if (isPublish) {
+function doPublish() {
     spinnerStart('Publishing');
 
     publish({ apiConfig }, trustedTesters && 'trustedTesters').then(res => {
@@ -123,9 +123,16 @@ function errorHandler(err) {
     console.error(red(err.message));
 
     if (err.response && err.response.body) {
-        try {
-            console.error(yellow(JSON.stringify(err.response.body, null, 4)));
-        } catch (err) {}
+        console.error(yellow(JSON.stringify(err.response.body, null, 4)));
     }
+
     process.exit(1);
+}
+
+if (isUpload && autoPublish) {
+    doAutoPublish();
+} else if (isUpload) {
+    doUpload();
+} else if (isPublish) {
+    doPublish();
 }

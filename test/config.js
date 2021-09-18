@@ -15,19 +15,23 @@ test('All options supported as env vars', t => {
         'EXTENSION_ID',
         'CLIENT_ID',
         'CLIENT_SECRET',
-        'REFRESH_TOKEN'
+        'REFRESH_TOKEN',
     ];
-    const varsVal = "123";
+    const varsValue = '123';
 
-    vars.forEach(name => process.env[name] = varsVal);
+    for (const name of vars) {
+        process.env[name] = varsValue;
+    }
 
     const config = createConfig(null, {});
-    t.is(config.apiConfig.extensionId, varsVal);
-    t.is(config.apiConfig.clientId, varsVal);
-    t.is(config.apiConfig.clientSecret, varsVal);
-    t.is(config.apiConfig.refreshToken, varsVal);
+    t.is(config.apiConfig.extensionId, varsValue);
+    t.is(config.apiConfig.clientId, varsValue);
+    t.is(config.apiConfig.clientSecret, varsValue);
+    t.is(config.apiConfig.refreshToken, varsValue);
 
-    vars.forEach(name => delete process.env[name]);
+    for (const name of vars) {
+        delete process.env[name];
+    }
 });
 
 test('Extracts zip path', t => {
@@ -41,7 +45,7 @@ test('Upload', t => {
     const config = createConfig('upload', {});
 
     t.true(config.isUpload);
-    t.false(config.isPublish);   
+    t.false(config.isPublish);
 });
 
 test('Publish', t => {

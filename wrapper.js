@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const zipdir = require('./zipdir');
 const webstore = require('chrome-webstore-upload');
+const zipdir = require('./zipdir');
 
 function getClient(apiConfig) {
     return webstore(apiConfig);
@@ -14,8 +14,8 @@ module.exports = {
         let client;
         try {
             client = getClient(apiConfig);
-        } catch(err) {
-            return Promise.reject(err);
+        } catch (error) {
+            return Promise.reject(error);
         }
 
         const fullPath = path.join(process.cwd(), zipPath);
@@ -25,17 +25,15 @@ module.exports = {
             return client.uploadExisting(zipStream, token);
         }
 
-        return zipdir(zipPath).then(zipStream => {
-            return client.uploadExisting(zipStream, token);
-        });
+        return zipdir(zipPath).then(zipStream => client.uploadExisting(zipStream, token));
     },
 
     publish({ apiConfig, token }, publishTarget) {
         let client;
         try {
             client = getClient(apiConfig);
-        } catch(err) {
-            return Promise.reject(err);
+        } catch (error) {
+            return Promise.reject(error);
         }
 
         return client.publish(publishTarget, token);
@@ -45,10 +43,10 @@ module.exports = {
         let client;
         try {
             client = getClient(apiConfig);
-        } catch(err) {
-            return Promise.reject(err);
+        } catch (error) {
+            return Promise.reject(error);
         }
 
         return client.fetchToken();
-    }
+    },
 };
