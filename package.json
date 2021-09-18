@@ -3,13 +3,13 @@
   "version": "1.2.2",
   "license": "MIT",
   "description": "CLI Utility to quickly upload + publish extensions to the Chrome Web Store",
-  "repository": "https://github.com/fregante/chrome-webstore-upload-cli",
+  "repository": "fregante/chrome-webstore-upload-cli",
   "bin": {
     "webstore": "index.js"
   },
   "type": "module",
   "scripts": {
-    "test": "ava"
+    "test": "xo && ava"
   },
   "keywords": [
     "chrome",
@@ -38,7 +38,7 @@
     "yazl": "^2.5.1"
   },
   "engines": {
-    "node": ">=12.17"
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "contributors": [
     "Andrew Levine",
