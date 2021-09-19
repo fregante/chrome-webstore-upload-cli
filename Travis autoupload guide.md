@@ -26,10 +26,10 @@ With this setup, you can automatically deploy your extension when creating a tag
     ```json
     {
       "devDependencies": {
-        "chrome-webstore-upload-cli": "^1.0.0"
+        "chrome-webstore-upload-cli": "^2.0.0"
       },
       "scripts": {
-        "release": "webstore upload --source=path/to/extension --auto-publish"
+        "release": "chrome-webstore-upload upload --source=path/to/extension --auto-publish"
       }
     }
     ```

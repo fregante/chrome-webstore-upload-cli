@@ -29,4 +29,3 @@ export function validateInput(input) {
 export function zipPath(root, file) {
     return relative(root, file);
 }
-

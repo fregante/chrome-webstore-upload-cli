@@ -34,4 +34,3 @@ export async function fetchToken(apiConfig) {
     const client = getClient(apiConfig);
     return client.fetchToken();
 }
-

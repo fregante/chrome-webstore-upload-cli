@@ -24,12 +24,12 @@ You can also automatically upload your extension on:
 ## Usage
 
 ```
-$ webstore --help
+$ chrome-webstore-upload --help
 
   CLI Utility to quickly upload + publish extensions to the Chrome Web Store
 
   Usage
-    $ webstore <command>
+    $ chrome-webstore-upload <command>
 
   where <command> is one of
       upload, publish
@@ -45,15 +45,16 @@ $ webstore --help
 
   Examples
     Upload new extension archive to the Chrome Web Store
-    $ webstore upload --source extension.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN
+    $ chrome-webstore-upload upload --source extension.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN
 
     Publish extension (with CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN set as env variables)
-    $ webstore publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
+    $ chrome-webstore-upload publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 ```
 
 ## Examples
 
 The following projects use this package to facilitate auto-deployment of extensions
+
 - [GifHub](https://github.com/DrewML/GifHub)
 - [Octo Preview](https://github.com/DrewML/octo-preview)
 - [GhostText](https://github.com/fregante/GhostText)
@@ -67,4 +68,4 @@ The following projects use this package to facilitate auto-deployment of extensi
 - [webext-storage-cache](https://github.com/fregante/webext-storage-cache) - Map-like promised cache storage with expiration. Chrome and Firefox
 - [webext-dynamic-content-scripts](https://github.com/fregante/webext-dynamic-content-scripts) - Automatically registers your content_scripts on domains added via permission.request
 - [Awesome-WebExtensions](https://github.com/fregante/Awesome-WebExtensions) - A curated list of awesome resources for WebExtensions development.
-- [More…](https://github.dihe.moe/fregante/webext-fun)
+- [More…](https://github.com/fregante/webext-fun)

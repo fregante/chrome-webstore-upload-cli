@@ -47,7 +47,7 @@ const cli = meow(`
 
 const preliminaryValidation = validateInput(cli.input, cli.flags);
 if (preliminaryValidation.error) {
-    console.error((preliminaryValidation.error));
+    console.error(preliminaryValidation.error);
     cli.showHelp(1);
 }
 
@@ -83,7 +83,10 @@ async function doAutoPublish() {
     }
 
     spinnerStart('Publishing');
-    const publishResponse = await publish({ apiConfig, token }, trustedTesters && 'trustedTesters');
+    const publishResponse = await publish(
+        { apiConfig, token },
+        trustedTesters && 'trustedTesters',
+    );
     spinner.stop();
     handlePublishStatus(publishResponse);
 }
@@ -106,7 +109,10 @@ async function doUpload() {
 async function doPublish() {
     spinnerStart('Publishing');
 
-    const response = await publish({ apiConfig }, trustedTesters && 'trustedTesters');
+    const response = await publish(
+        { apiConfig },
+        trustedTesters && 'trustedTesters',
+    );
     spinner.stop();
     handlePublishStatus(response);
 }
@@ -118,9 +124,13 @@ function errorHandler(error) {
         const response = JSON.parse(error?.response?.body ?? '{}');
         const { clientId, refreshToken } = apiConfig;
         if (response.error_description === 'The OAuth client was not found.') {
-            console.error(('Error: `The OAuth client was not found`'));
-            console.error(('Probably the provided client ID is not valid. Try following the guide again'));
-            console.error(('https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md'));
+            console.error('Error: `The OAuth client was not found`');
+            console.error(
+                'Probably the provided client ID is not valid. Try following the guide again',
+            );
+            console.error(
+                'https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md',
+            );
             console.error({ clientId });
             process.exitCode = 1;
             return;
@@ -128,9 +138,13 @@ function errorHandler(error) {
 
         if (response.error_description === 'Bad Request') {
             const { clientId } = apiConfig;
-            console.error(('Error: `invalid_grant`'));
-            console.error(('Probably the provided refresh token is not valid. Try following the guide again'));
-            console.error(('https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md'));
+            console.error('Error: `invalid_grant`');
+            console.error(
+                'Probably the provided refresh token is not valid. Try following the guide again',
+            );
+            console.error(
+                'https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md',
+            );
             console.error({ clientId, refreshToken });
             process.exitCode = 1;
             return;
@@ -139,15 +153,15 @@ function errorHandler(error) {
 
     if (error?.itemError?.length > 0) {
         for (const itemError of error.itemError) {
-            console.error(('Error: ' + itemError.error_code));
-            console.error((itemError.error_detail));
+            console.error('Error: ' + itemError.error_code);
+            console.error(itemError.error_detail);
         }
 
         process.exitCode = 1;
         return;
     }
 
-    console.error(('Error'));
+    console.error('Error');
     console.error(error);
     process.exitCode = 1;
 }

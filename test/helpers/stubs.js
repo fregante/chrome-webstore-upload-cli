@@ -15,4 +15,3 @@ export function stubConsoleLog(stub) {
         console.log = old;
     };
 }
-

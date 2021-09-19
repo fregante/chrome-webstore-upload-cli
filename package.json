@@ -1,32 +1,48 @@
 {
   "name": "chrome-webstore-upload-cli",
   "version": "2.0.0",
-  "license": "MIT",
-  "description": "CLI Utility to quickly upload + publish extensions to the Chrome Web Store",
-  "repository": "fregante/chrome-webstore-upload-cli",
-  "bin": {
-    "chrome-webstore-upload": "cli.js"
-  },
-  "type": "module",
-  "scripts": {
-    "test": "xo && ava"
-  },
+  "description": "CLI tool to upload Chrome Extensions to the Chrome Web Store",
   "keywords": [
     "chrome",
     "publish",
     "webstore",
+    "store",
     "extension",
     "deploy",
     "update",
     "upload",
     "cli"
   ],
+  "repository": "fregante/chrome-webstore-upload-cli",
+  "funding": "https://github.com/sponsors/fregante",
+  "license": "MIT",
   "author": "Andrew Levine",
-  "devDependencies": {
-    "ava": "^3.15.0",
-    "execa": "^5.1.1",
-    "is-stream": "^3.0.0",
-    "xo": "^0.44.0"
+  "contributors": [
+    "Federico Brigante <me@fregante.com> (https://fregante.com)"
+  ],
+  "type": "module",
+  "bin": {
+    "chrome-webstore-upload": "cli.js"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "xo": {
+    "rules": {
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "camelcase": "off",
+      "unicorn/no-process-exit": "off"
+    },
+    "space": 4
+  },
+  "ava": {
+    "files": [
+      "!test/fixtures/**",
+      "!test/helpers/**"
+    ]
   },
   "dependencies": {
     "chrome-webstore-upload": "^0.5.0",
@@ -36,28 +52,13 @@
     "recursive-readdir": "^2.2.2",
     "yazl": "^2.5.1"
   },
+  "devDependencies": {
+    "ava": "^3.15.0",
+    "execa": "^5.1.1",
+    "is-stream": "^3.0.0",
+    "xo": "^0.44.0"
+  },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
-  },
-  "contributors": [
-    "Andrew Levine",
-    "Federico Brigante <me@fregante.com> (https://fregante.com)"
-  ],
-  "ava": {
-    "files": [
-      "!test/fixtures/**",
-      "!test/helpers/**"
-    ]
-  },
-  "xo": {
-    "space": 4,
-    "rules": {
-      "object-curly-spacing": [
-        "error",
-        "always"
-      ],
-      "camelcase": "off",
-      "unicorn/no-process-exit": "off"
-    }
   }
 }
