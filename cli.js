@@ -120,11 +120,13 @@ async function doPublish() {
 function errorHandler(error) {
     spinner.stop();
 
+    console.log(error?.response?.body ?? error);
+    process.exitCode = 1;
+
     if (error?.name === 'HTTPError') {
         const response = JSON.parse(error?.response?.body ?? '{}');
         const { clientId, refreshToken } = apiConfig;
         if (response.error_description === 'The OAuth client was not found.') {
-            console.error('Error: `The OAuth client was not found`');
             console.error(
                 'Probably the provided client ID is not valid. Try following the guide again',
             );
@@ -132,13 +134,11 @@ function errorHandler(error) {
                 'https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md',
             );
             console.error({ clientId });
-            process.exitCode = 1;
             return;
         }
 
         if (response.error_description === 'Bad Request') {
             const { clientId } = apiConfig;
-            console.error('Error: `invalid_grant`');
             console.error(
                 'Probably the provided refresh token is not valid. Try following the guide again',
             );
@@ -146,7 +146,11 @@ function errorHandler(error) {
                 'https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md',
             );
             console.error({ clientId, refreshToken });
-            process.exitCode = 1;
+            return;
+        }
+
+        if (error?.message === 'Response code 400 (Bad Request)') {
+            // Nothing else to add
             return;
         }
     }
@@ -156,14 +160,7 @@ function errorHandler(error) {
             console.error('Error: ' + itemError.error_code);
             console.error(itemError.error_detail);
         }
-
-        process.exitCode = 1;
-        return;
     }
-
-    console.error('Error');
-    console.error(error);
-    process.exitCode = 1;
 }
 
 async function init() {
