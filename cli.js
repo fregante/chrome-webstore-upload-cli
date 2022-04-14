@@ -160,8 +160,6 @@ function errorHandler(error) {
             console.error('Error: ' + itemError.error_code);
             console.error(itemError.error_detail);
         }
-
-        return;
     }
 }
 
