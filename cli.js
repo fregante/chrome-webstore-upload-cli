@@ -14,7 +14,7 @@ import {
 
 const cli = meow(`
     Usage
-      $ webstore <command>
+      $ chrome-webstore-upload <command>
 
     where <command> is one of
         upload, publish
@@ -31,10 +31,10 @@ const cli = meow(`
 
     Examples
       Upload new extension archive to the Chrome Web Store
-      $ webstore upload --source extension.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN
+      $ chrome-webstore-upload upload --source extension.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN
 
       Publish extension (with CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN set as env variables)
-      $ webstore publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
+      $ chrome-webstore-upload publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 `, {
     importMeta: import.meta,
     flags: {
