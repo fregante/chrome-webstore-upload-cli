@@ -7,14 +7,19 @@ import { zipPath } from './util.js';
 export default async function zipStreamFromDir(dir) {
     const files = await recursiveDir(dir);
     const zip = new yazl.ZipFile();
+    let hasManifest = false;
     for (const file of files) {
         if (isNotJunk(basename(file))) {
-            zip.addFile(file, zipPath(dir, file));
+            const relativePath = zipPath(dir, file);
+            zip.addFile(file, relativePath);
+            hasManifest = hasManifest || relativePath === 'manifest.json';
         }
     }
 
-    await new Promise(resolve => {
-        zip.end(resolve);
-    });
+    if (!hasManifest) {
+        throw new Error(`manifest.json was not found in ${dir}`);
+    }
+
+    zip.end();
     return zip.outputStream;
 }

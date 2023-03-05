@@ -18,12 +18,11 @@ function getExtensionFixtureFiles(name) {
 }
 
 test('Rejects when provided invalid dir', async t => {
-    try {
-        await zipdir('foo');
-        t.fail('Did not reject');
-    } catch {
-        t.pass('Rejected');
-    }
+    await t.throwsAsync(zipdir('foo'));
+});
+
+test('Rejects when the manifest isn’t found', async t => {
+    await t.throwsAsync(zipdir('./test/fixtures/wrong-folder'));
 });
 
 test('Resolves to a readable stream', async t => {
