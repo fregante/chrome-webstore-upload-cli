@@ -7,21 +7,11 @@ import zipdir from './zipdir.js';
 const isZip = filepath => path.extname(filepath) === '.zip';
 
 export async function upload({ apiConfig, zipPath, token }) {
-    let client;
-    try {
-        client = getClient(apiConfig);
-    } catch (error) {
-        return Promise.reject(error);
-    }
-
+    const client = getClient(apiConfig);
     const fullPath = path.join(process.cwd(), zipPath);
-
-    if (isZip(fullPath)) {
-        const zipStream = fs.createReadStream(fullPath);
-        return client.uploadExisting(zipStream, token);
-    }
-
-    const zipStream = await zipdir(zipPath);
+    const zipStream = isZip(fullPath)
+        ? fs.createReadStream(fullPath)
+        : await zipdir(zipPath);
     return client.uploadExisting(zipStream, token);
 }
 

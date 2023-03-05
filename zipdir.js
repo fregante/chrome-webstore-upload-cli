@@ -13,8 +13,7 @@ export default async function zipStreamFromDir(dir) {
         }
     }
 
-    await new Promise(resolve => {
-        zip.end(resolve);
-    });
+    zip.end();
+
     return zip.outputStream;
 }
