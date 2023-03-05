@@ -12,7 +12,7 @@ export default async function zipStreamFromDir(dir) {
         if (isNotJunk(basename(file))) {
             const relativePath = zipPath(dir, file);
             zip.addFile(file, relativePath);
-            hasManifest ||= relativePath === 'manifest.json';
+            hasManifest = hasManifest || relativePath === 'manifest.json';
         }
     }
 
