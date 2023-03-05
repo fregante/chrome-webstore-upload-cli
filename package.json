@@ -32,11 +32,12 @@
       "object-curly-spacing": [
         "error",
         "always"
-      ],
-      "camelcase": "off",
-      "unicorn/no-process-exit": "off"
+      ]
     },
-    "space": 4
+    "space": 4,
+    "ignore": [
+      "test/fixtures"
+    ]
   },
   "ava": {
     "files": [
@@ -45,18 +46,18 @@
     ]
   },
   "dependencies": {
-    "chrome-webstore-upload": "^0.5.0",
+    "chrome-webstore-upload": "^1.0.0",
     "junk": "^4.0.0",
-    "meow": "^10.1.1",
-    "ora": "^6.0.1",
-    "recursive-readdir": "^2.2.2",
+    "meow": "^11.0.0",
+    "ora": "^6.1.2",
+    "recursive-readdir": "^2.2.3",
     "yazl": "^2.5.1"
   },
   "devDependencies": {
-    "ava": "^3.15.0",
-    "execa": "^5.1.1",
+    "ava": "^5.2.0",
+    "execa": "^7.0.0",
     "is-stream": "^3.0.0",
-    "xo": "^0.44.0"
+    "xo": "^0.53.1"
   },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"

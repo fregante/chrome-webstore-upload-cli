@@ -173,4 +173,8 @@ async function init() {
     }
 }
 
-init().catch(errorHandler);
+try {
+    await init();
+} catch (error) {
+    errorHandler(error);
+}
