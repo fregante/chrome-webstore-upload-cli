@@ -11,6 +11,11 @@ export function handlePublishStatus(item) {
         return;
     }
 
+    if (firstStatus === 'ITEM_PENDING_REVIEW') {
+        console.log('Publish pending review');
+        return;
+    }
+
     throw item;
 }
 
