@@ -8,7 +8,7 @@ const isZip = filepath => path.extname(filepath) === '.zip';
 
 export async function upload({ apiConfig, zipPath, token }) {
     const client = getClient(apiConfig);
-    const fullPath = path.join(process.cwd(), zipPath);
+    const fullPath = path.resolve(process.cwd(), zipPath);
     const zipStream = isZip(fullPath)
         ? fs.createReadStream(fullPath)
         : await zipdir(zipPath);
