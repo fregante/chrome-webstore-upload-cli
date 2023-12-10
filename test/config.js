@@ -1,4 +1,5 @@
 import process from 'node:process';
+import path from 'node:path';
 import test from 'ava';
 import createConfig from '../config.js';
 
@@ -39,7 +40,7 @@ test('Extracts zip path', t => {
     const source = 'foo.zip';
     const config = createConfig(null, { source });
 
-    t.is(config.zipPath, source);
+    t.is(config.zipPath, path.resolve(source));
 });
 
 test('Upload', t => {

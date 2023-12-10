@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import process from 'node:process';
 import getClient from 'chrome-webstore-upload';
 import zipdir from './zipdir.js';
 
@@ -8,9 +7,8 @@ const isZip = filepath => path.extname(filepath) === '.zip';
 
 export async function upload({ apiConfig, zipPath, token }) {
     const client = getClient(apiConfig);
-    const fullPath = path.resolve(process.cwd(), zipPath);
-    const zipStream = isZip(fullPath)
-        ? fs.createReadStream(fullPath)
+    const zipStream = isZip(zipPath)
+        ? fs.createReadStream(zipPath)
         : await zipdir(zipPath);
     return client.uploadExisting(zipStream, token);
 }

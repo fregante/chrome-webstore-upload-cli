@@ -1,4 +1,5 @@
 import process from 'node:process';
+import findSource from './find-source.js';
 
 export default function getConfig(command, flags) {
     const apiConfig = {
@@ -10,7 +11,7 @@ export default function getConfig(command, flags) {
 
     return {
         apiConfig,
-        zipPath: flags.source,
+        zipPath: findSource(flags.source),
         isUpload: command === 'upload',
         isPublish: command === 'publish',
         autoPublish: flags.autoPublish,
