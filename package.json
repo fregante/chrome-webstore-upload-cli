@@ -28,16 +28,16 @@
     "test": "xo && ava"
   },
   "xo": {
+    "ignore": [
+      "test/fixtures"
+    ],
     "rules": {
       "object-curly-spacing": [
         "error",
         "always"
       ]
     },
-    "space": 4,
-    "ignore": [
-      "test/fixtures"
-    ]
+    "space": 4
   },
   "ava": {
     "files": [
@@ -46,20 +46,20 @@
     ]
   },
   "dependencies": {
-    "chrome-webstore-upload": "^1.0.0",
-    "junk": "^4.0.0",
-    "meow": "^11.0.0",
-    "ora": "^6.1.2",
+    "chrome-webstore-upload": "^2.0.0",
+    "junk": "^4.0.1",
+    "meow": "^12.1.1",
+    "ora": "^7.0.1",
     "recursive-readdir": "^2.2.3",
     "yazl": "^2.5.1"
   },
   "devDependencies": {
-    "ava": "^5.2.0",
-    "execa": "^7.0.0",
+    "ava": "^6.0.1",
+    "execa": "^8.0.1",
     "is-stream": "^3.0.0",
-    "xo": "^0.54.2"
+    "xo": "^0.56.0"
   },
   "engines": {
-    "node": "^14.13.1 || >=16.0.0"
+    "node": ">=18"
   }
 }
