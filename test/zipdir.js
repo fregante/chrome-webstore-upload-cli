@@ -54,4 +54,15 @@ test.serial('Ignores OS junk files', async t => {
     resetStub();
 });
 
-test.todo('Removes user-supplied root from path in zip');
+test('Removes user-supplied root from path in zip', t => {
+    const zip = new ZipFile();
+    zip.addFile('./test/fixtures/without-junk/manifest.json', 'manifest.json');
+    zip.end();
+
+    return new Promise(resolve => {
+        zip.outputStream.on('data', data => {
+            t.false(data.toString().includes('without-junk'));
+            resolve();
+        });
+    });
+});

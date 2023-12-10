@@ -5,16 +5,16 @@ import { mockFileSystem } from './helpers/stubs.js';
 
 mockFileSystem();
 
-test('Favors params over env vars', t => {
+test('Favors params over env vars', async t => {
     process.env.EXTENSION_ID = 123;
     const expectedId = 456;
-    const config = createConfig(null, { extensionId: expectedId });
+    const config = await createConfig(null, { extensionId: expectedId });
 
     t.is(config.apiConfig.extensionId, expectedId);
     delete process.env.EXTENSION_ID;
 });
 
-test('All options supported as env vars', t => {
+test('All options supported as env vars', async t => {
     const vars = [
         'EXTENSION_ID',
         'CLIENT_ID',
@@ -27,7 +27,7 @@ test('All options supported as env vars', t => {
         process.env[name] = varsValue;
     }
 
-    const config = createConfig(null, {});
+    const config = await createConfig(null, {});
     t.is(config.apiConfig.extensionId, varsValue);
     t.is(config.apiConfig.clientId, varsValue);
     t.is(config.apiConfig.clientSecret, varsValue);
@@ -38,22 +38,22 @@ test('All options supported as env vars', t => {
     }
 });
 
-test('Upload', t => {
-    const config = createConfig('upload', {});
+test('Upload', async t => {
+    const config = await createConfig('upload', {});
 
     t.true(config.isUpload);
     t.false(config.isPublish);
 });
 
-test('Publish', t => {
-    const config = createConfig('publish', {});
+test('Publish', async t => {
+    const config = await createConfig('publish', {});
 
     t.true(config.isPublish);
     t.false(config.isUpload);
 });
 
-test('Auto Publish', t => {
-    const config = createConfig(null, { autoPublish: true });
+test('Auto Publish', async t => {
+    const config = await createConfig(null, { autoPublish: true });
 
     t.true(config.autoPublish);
 });

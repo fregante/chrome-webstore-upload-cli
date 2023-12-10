@@ -57,7 +57,7 @@ const {
     isPublish,
     autoPublish,
     trustedTesters,
-} = createConfig(cli.input[0], cli.flags);
+} = await createConfig(cli.input[0], cli.flags);
 
 const spinner = ora();
 const spinnerStart = text => {

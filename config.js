@@ -1,7 +1,7 @@
 import process from 'node:process';
 import findSource from './find-source.js';
 
-export default function getConfig(command, flags) {
+export default async function getConfig(command, flags) {
     const apiConfig = {
         extensionId: flags.extensionId || process.env.EXTENSION_ID,
         clientId: flags.clientId || process.env.CLIENT_ID,
@@ -11,7 +11,7 @@ export default function getConfig(command, flags) {
 
     return {
         apiConfig,
-        zipPath: findSource(flags.source),
+        zipPath: await findSource(flags.source),
         isUpload: command === 'upload',
         isPublish: command === 'publish',
         autoPublish: flags.autoPublish,

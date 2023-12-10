@@ -1,22 +1,30 @@
-import fs from 'node:fs';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
 const isZip = filepath => path.extname(filepath) === '.zip';
+async function exists(f) {
+    try {
+        await fs.stat(f);
+        return true;
+    } catch {
+        return false;
+    }
+}
 
-function processDirectory(resolvedPath, errorStart = 'The') {
-    if (!fs.existsSync(resolvedPath)) {
+async function processDirectory(resolvedPath, errorStart = 'The') {
+    if (!await exists(resolvedPath)) {
         throw new Error(`${errorStart} directory was not found: ${resolvedPath}`);
     }
 
     const manifestPath = path.join(resolvedPath, 'manifest.json');
-    if (!fs.existsSync(manifestPath)) {
+    if (!await exists(manifestPath)) {
         throw new Error(`${errorStart} directory does not contain manifest.json: ${resolvedPath}`);
     }
 
     let manifest;
     try {
-        manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+        manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
         if (typeof manifest.manifest_version === 'number') {
             return resolvedPath;
         }
@@ -25,15 +33,15 @@ function processDirectory(resolvedPath, errorStart = 'The') {
     throw new Error(`${errorStart} directory does not contain a valid manifest.json: ${resolvedPath}`);
 }
 
-function getPathFromPackageJson() {
+async function getPathFromPackageJson() {
     const cwd = process.cwd();
 
     const packageJsonPath = path.join(cwd, 'package.json');
-    if (!fs.existsSync(packageJsonPath)) {
+    if (!await exists(packageJsonPath)) {
         return undefined;
     }
 
-    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    const pkg = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'));
     if (!pkg.webExt?.sourceDir) {
         return undefined;
     }
@@ -42,7 +50,7 @@ function getPathFromPackageJson() {
     return processDirectory(resolvedPath, 'Reading webExt.sourceDir from package.json, the');
 }
 
-export default function findSource(flag) {
+export default async function findSource(flag) {
     const cwd = process.cwd();
 
     if (flag) {
@@ -51,13 +59,13 @@ export default function findSource(flag) {
             return processDirectory(resolvedPath);
         }
 
-        if (!fs.existsSync(resolvedPath)) {
+        if (!await exists(resolvedPath)) {
             throw new Error(`Zipped extension not found: ${resolvedPath}`);
         }
 
         return resolvedPath;
     }
 
-    return getPathFromPackageJson()
+    return await getPathFromPackageJson()
         ?? processDirectory(cwd, 'Using the cwd, the');
 }
