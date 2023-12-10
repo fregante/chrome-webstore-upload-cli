@@ -2,22 +2,9 @@ import path from 'node:path';
 import test from 'ava';
 import mockFs from 'mock-fs';
 import findSource from '../find-source.js';
+import { mockFileSystem } from './helpers/stubs.js';
 
-const validManifest = '{"manifest_version": 2}';
-const invalidManifest = '{"version": 2}';;
-
-mockFs({
-    'extension.zip': 'LZIP;trustmebro',
-    'extension-dir': {
-        'manifest.json': validManifest,
-    },
-    'extension-dir-but-invalid-manifest': {
-        'manifest.json': invalidManifest,
-    },
-    'empty-dir': {},
-    'manifest.json': validManifest,
-    'package.json': '{"webExt": {"sourceDir": "extension-dir"}}',
-});
+mockFileSystem();
 
 test('Uses the provided source zip', t => {
     const source = 'extension.zip';

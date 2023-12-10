@@ -2,6 +2,9 @@ import process from 'node:process';
 import path from 'node:path';
 import test from 'ava';
 import createConfig from '../config.js';
+import { mockFileSystem } from './helpers/stubs.js';
+
+mockFileSystem();
 
 test('Favors params over env vars', t => {
     process.env.EXTENSION_ID = 123;
@@ -34,13 +37,6 @@ test('All options supported as env vars', t => {
     for (const name of vars) {
         delete process.env[name];
     }
-});
-
-test('Extracts zip path', t => {
-    const source = 'foo.zip';
-    const config = createConfig(null, { source });
-
-    t.is(config.zipPath, path.resolve(source));
 });
 
 test('Upload', t => {
