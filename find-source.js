@@ -3,6 +3,9 @@ import path from 'node:path';
 import process from 'node:process';
 
 const isZip = filepath => path.extname(filepath) === '.zip';
+
+// Node hates race conditons and ease of use
+// https://github.com/nodejs/node/issues/39960#issuecomment-909444667
 async function exists(f) {
     try {
         await fs.stat(f);
