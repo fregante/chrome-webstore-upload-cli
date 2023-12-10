@@ -20,7 +20,7 @@ const cli = meow(`
         upload, publish
 
     Options
-      --source             Path to either a zip file, or a directory to be zipped
+      --source             Path to either a zip file, or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
       --extension-id       The ID of the Chrome Extension (environment variable EXTENSION_ID)
       --client-id          OAuth2 Client ID (environment variable CLIENT_ID)
       --client-secret      OAuth2 Client Secret (environment variable CLIENT_SECRET)
@@ -40,7 +40,6 @@ const cli = meow(`
     flags: {
         source: {
             type: 'string',
-            default: process.cwd(),
         },
     },
 });
@@ -58,7 +57,7 @@ const {
     isPublish,
     autoPublish,
     trustedTesters,
-} = createConfig(cli.input[0], cli.flags);
+} = await createConfig(cli.input[0], cli.flags);
 
 const spinner = ora();
 const spinnerStart = text => {
