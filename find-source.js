@@ -4,17 +4,42 @@ import process from 'node:process';
 
 const isZip = filepath => path.extname(filepath) === '.zip';
 
-function processDirectory(resolvedPath/* , errorStart = 'Directory' */) {
-    // TODO: The tests need to simulate the FS for this to work
-    // if (!fs.existsSync(resolvedPath)) {
-    //     throw new Error(`${errorStart} not found: ${resolvedPath}`);
-    // }
+function processDirectory(resolvedPath, errorStart = 'The') {
+    if (!fs.existsSync(resolvedPath)) {
+        throw new Error(`${errorStart} directory was not found: ${resolvedPath}`);
+    }
 
-    // if (!fs.existsSync(path.join(resolvedPath, 'manifest.json'))) {
-    //     throw new Error(`${errorStart} does not contain manifest.json: ${resolvedPath}`);
-    // }
+    const manifestPath = path.join(resolvedPath, 'manifest.json');
+    if (!fs.existsSync(manifestPath)) {
+        throw new Error(`${errorStart} directory does not contain manifest.json: ${resolvedPath}`);
+    }
 
-    return resolvedPath;
+    let manifest;
+    try {
+        manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+        if (typeof manifest.manifest_version === 'number') {
+            return resolvedPath;
+        }
+    } catch {}
+
+    throw new Error(`${errorStart} directory does not contain a valid manifest.json: ${resolvedPath}`);
+}
+
+function getPathFromPackageJson() {
+    const cwd = process.cwd();
+
+    const packageJsonPath = path.join(cwd, 'package.json');
+    if (!fs.existsSync(packageJsonPath)) {
+        return undefined;
+    }
+
+    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    if (!pkg.webExt?.sourceDir) {
+        return undefined;
+    }
+
+    const resolvedPath = path.resolve(cwd, pkg.webExt.sourceDir);
+    return processDirectory(resolvedPath, 'Reading webExt.sourceDir from package.json, the');
 }
 
 export default function findSource(flag) {
@@ -27,20 +52,12 @@ export default function findSource(flag) {
         }
 
         if (!fs.existsSync(resolvedPath)) {
-            return resolvedPath;
+            throw new Error(`Zipped extension not found: ${resolvedPath}`);
         }
 
-        throw new Error(`File not found: ${resolvedPath}`);
+        return resolvedPath;
     }
 
-    const packageJsonPath = path.join(cwd, 'package.json');
-    if (fs.existsSync(packageJsonPath)) {
-        const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-        if (pkg.webExt?.sourceDir) {
-            const resolvedPath = path.resolve(cwd, pkg.webExt.sourceDir);
-            return processDirectory(resolvedPath, 'Reading webExt.sourceDir from package.json, the directory');
-        }
-    }
-
-    return processDirectory(cwd, 'Using the cwd, the directory');
+    return getPathFromPackageJson()
+        ?? processDirectory(cwd, 'Using the cwd, the');
 }
