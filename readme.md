@@ -12,7 +12,7 @@ npm install chrome-webstore-upload-cli
 
 ## Setup
 
-You will need a Google API `clientId`, `clientSecret`, and a `refreshToken`. Read [the guide.](https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md)
+You will need a Google API `clientId`, `clientSecret`, and a `refreshToken`. Read [the guide.](https://github.com/fregante/chrome-webstore-upload-keys)
 
 You can also automatically upload your extension on:
 
