@@ -1,11 +1,12 @@
 import { basename } from 'node:path';
+import { readdir } from 'node:fs/promises';
 import { isNotJunk } from 'junk';
 import yazl from 'yazl';
-import recursiveDir from 'recursive-readdir';
 import { zipPath } from './util.js';
 
 export default async function zipStreamFromDir(dir) {
-    const files = await recursiveDir(dir);
+    const files = await readdir(dir, { recursive: true });
+    ;
     const zip = new yazl.ZipFile();
     let hasManifest = false;
     for (const file of files) {

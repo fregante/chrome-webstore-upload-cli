@@ -16,16 +16,19 @@
   "repository": "fregante/chrome-webstore-upload-cli",
   "funding": "https://github.com/sponsors/fregante",
   "license": "MIT",
-  "author": "Andrew Levine",
+  "author": "Federico Brigante <me@fregante.com> (https://fregante.com)",
   "contributors": [
-    "Federico Brigante <me@fregante.com> (https://fregante.com)"
+    "Andrew Levine"
   ],
   "type": "module",
   "bin": {
-    "chrome-webstore-upload": "cli.js"
+    "chrome-webstore-upload": "distribution/cli.js"
   },
   "scripts": {
-    "test": "xo && ava"
+    "test": "xo && ava",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prepack": "npm run build"
   },
   "xo": {
     "ignore": [
@@ -50,17 +53,19 @@
     "junk": "^4.0.1",
     "meow": "^12.1.1",
     "ora": "^7.0.1",
-    "recursive-readdir": "^2.2.3",
     "yazl": "^2.5.1"
   },
   "devDependencies": {
+    "@sindresorhus/tsconfig": "^5.0.0",
+    "@types/yazl": "^2.4.5",
     "ava": "^6.0.1",
     "execa": "^8.0.1",
     "is-stream": "^3.0.0",
     "mock-fs": "^5.2.0",
+    "typescript": "^5.3.3",
     "xo": "^0.56.0"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.17"
   }
 }
