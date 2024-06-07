@@ -29,7 +29,7 @@ $ chrome-webstore-upload --help
   Usage
     $ chrome-webstore-upload [command]
 
-  where [command] can one of
+  where [command] can be one of
       upload, publish
 
   if the command is missing, it will both upload and publish the extension.
@@ -40,7 +40,7 @@ $ chrome-webstore-upload --help
     --client-id         OAuth2 Client ID (environment variable CLIENT_ID)
     --client-secret     OAuth2 Client Secret (environment variable CLIENT_SECRET)
     --refresh-token     OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
-    --auto-publish      Can be used with the "upload" command
+    --auto-publish      Can be used with the "upload" command (deprecated, use `chrome-webstore-upload` without a command instead)
     --trusted-testers   Can be used with the "publish" command
 
   Examples

@@ -27,7 +27,7 @@ const cli = meow(`
       --client-id         OAuth2 Client ID (environment variable CLIENT_ID)
       --client-secret     OAuth2 Client Secret (environment variable CLIENT_SECRET)
       --refresh-token     OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
-      --auto-publish      Can be used with the "upload" command
+      --auto-publish      Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
       --trusted-testers   Can be used with the "publish" command
 
     Examples
