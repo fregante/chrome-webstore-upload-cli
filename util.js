@@ -20,10 +20,6 @@ export function handlePublishStatus(item) {
 }
 
 export function validateInput(input) {
-    if (input.length === 0) {
-        return { error: 'Must specify "upload" or "publish"' };
-    }
-
     if (input.length > 1) {
         return { error: 'Too many parameters' };
     }

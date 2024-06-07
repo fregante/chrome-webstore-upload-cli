@@ -57,3 +57,10 @@ test('Auto Publish', async t => {
 
     t.true(config.autoPublish);
 });
+
+test('Auto upload and publish', async t => {
+    const config = await createConfig('', {});
+    t.false(config.isPublish);
+    t.true(config.isUpload);
+    t.true(config.autoPublish);
+});

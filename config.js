@@ -12,9 +12,9 @@ export default async function getConfig(command, flags) {
     return {
         apiConfig,
         zipPath: await findSource(flags.source),
-        isUpload: command === 'upload',
+        isUpload: command !== 'publish',
         isPublish: command === 'publish',
-        autoPublish: flags.autoPublish,
+        autoPublish: flags.autoPublish || !command,
         trustedTesters: flags.trustedTesters,
     };
 }
