@@ -19,14 +19,6 @@ export function handlePublishStatus(item) {
     throw item;
 }
 
-export function validateInput(input) {
-    if (input.length > 1) {
-        return { error: 'Too many parameters' };
-    }
-
-    return { valid: true };
-}
-
 export function zipPath(root, file) {
     return relative(root, file);
 }

@@ -9,7 +9,6 @@ import { upload, publish, fetchToken } from './wrapper.js';
 import {
     isUploadSuccess,
     handlePublishStatus,
-    validateInput,
 } from './util.js';
 
 const cli = meow(`
