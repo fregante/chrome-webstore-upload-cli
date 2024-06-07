@@ -15,13 +15,13 @@ const cli = meow(`
     Usage
       $ chrome-webstore-upload [command]
 
-    where [command] can one of
+    where [command] can be one of
         upload, publish
 
     if the command is missing, it will both upload and publish the extension.
 
     Options
-      --source            Path to either a zip file, or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
+      --source            Path to either a zip file or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
       --extension-id      The ID of the Chrome Extension (environment variable EXTENSION_ID)
       --client-id         OAuth2 Client ID (environment variable CLIENT_ID)
       --client-secret     OAuth2 Client Secret (environment variable CLIENT_SECRET)
@@ -132,7 +132,7 @@ function errorHandler(error) {
                 'Probably the provided client ID is not valid. Try following the guide again',
             );
             console.error(
-                'https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md',
+                'https://github.com/fregante/chrome-webstore-upload-keys',
             );
             console.error({ clientId });
             return;
@@ -144,7 +144,7 @@ function errorHandler(error) {
                 'Probably the provided refresh token is not valid. Try following the guide again',
             );
             console.error(
-                'https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md',
+                'https://github.com/fregante/chrome-webstore-upload-keys',
             );
             console.error({ clientId, refreshToken });
             return;
