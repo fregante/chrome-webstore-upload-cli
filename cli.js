@@ -28,6 +28,7 @@ const cli = meow(`
       --refresh-token     OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
       --auto-publish      Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
       --trusted-testers   Can be used with the "publish" command
+      --deploy-percentage Can be used with the "publish" command
 
     Examples
       Upload and publish a new version, using existing environment variables and the default value for --source
@@ -59,6 +60,7 @@ const {
     isPublish,
     autoPublish,
     trustedTesters,
+    deployPercentage,
 } = await createConfig(cli.input[0], cli.flags);
 
 const spinner = ora();
@@ -87,6 +89,7 @@ async function doAutoPublish() {
     const publishResponse = await publish(
         { apiConfig, token },
         trustedTesters && 'trustedTesters',
+        deployPercentage,
     );
     spinner.stop();
     handlePublishStatus(publishResponse);
@@ -113,6 +116,7 @@ async function doPublish() {
     const response = await publish(
         { apiConfig },
         trustedTesters && 'trustedTesters',
+        deployPercentage,
     );
     spinner.stop();
     handlePublishStatus(response);

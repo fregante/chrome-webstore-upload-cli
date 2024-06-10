@@ -42,6 +42,7 @@ $ chrome-webstore-upload --help
     --refresh-token     OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
     --auto-publish      Can be used with the "upload" command (deprecated, use `chrome-webstore-upload` without a command instead)
     --trusted-testers   Can be used with the "publish" command
+    --deploy-percentage Can be used with the "publish" command
 
   Examples
     Upload and publish a new version, using existing environment variables and the default value for --source

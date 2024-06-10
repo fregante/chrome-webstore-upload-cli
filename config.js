@@ -16,5 +16,6 @@ export default async function getConfig(command, flags) {
         isPublish: command === 'publish',
         autoPublish: flags.autoPublish || !command,
         trustedTesters: flags.trustedTesters,
+        deployPercentage: flags.deployPercentage,
     };
 }
