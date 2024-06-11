@@ -28,7 +28,7 @@ const cli = meow(`
       --refresh-token     OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
       --auto-publish      Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
       --trusted-testers   Can be used with the "publish" command
-      --deploy-percentage Can be used with the "publish" command
+      --deploy-percentage Can be used with the "publish" command. Defaults to 100
 
     Examples
       Upload and publish a new version, using existing environment variables and the default value for --source
