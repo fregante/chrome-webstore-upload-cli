@@ -67,7 +67,7 @@ test('Publish with deploy percentage', async t => {
 test('Publish without deploy percentage', async t => {
     const config = await createConfig(null, {});
 
-    t.falsy(config.deployPercentage);
+    t.is(config.deployPercentage, undefined);
 });
 
 test('Auto upload and publish', async t => {
