@@ -46,7 +46,7 @@
     ]
   },
   "dependencies": {
-    "chrome-webstore-upload": "^3.0.0",
+    "chrome-webstore-upload": "^3.1.0",
     "junk": "^4.0.1",
     "meow": "^12.1.1",
     "ora": "^7.0.1",

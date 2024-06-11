@@ -13,9 +13,9 @@ export async function upload({ apiConfig, zipPath, token }) {
     return client.uploadExisting(zipStream, token);
 }
 
-export async function publish({ apiConfig, token }, publishTarget) {
+export async function publish({ apiConfig, token }, publishTarget, deployPercentage) {
     const client = getClient(apiConfig);
-    return client.publish(publishTarget, token);
+    return client.publish(publishTarget, token, deployPercentage);
 }
 
 export async function fetchToken(apiConfig) {
