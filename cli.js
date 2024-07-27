@@ -2,7 +2,6 @@
 
 import path from 'node:path';
 import process from 'node:process';
-import ora from 'ora';
 import meow from 'meow';
 import createConfig from './config.js';
 import { upload, publish, fetchToken } from './wrapper.js';
@@ -63,17 +62,11 @@ const {
     deployPercentage,
 } = await createConfig(cli.input[0], cli.flags);
 
-const spinner = ora();
-const spinnerStart = text => {
-    spinner.text = text;
-    return spinner.start();
-};
-
 async function doAutoPublish() {
-    spinnerStart('Fetching token');
+    console.log('Fetching token...');
 
     const token = await fetchToken(apiConfig);
-    spinnerStart(`Uploading ${path.basename(zipPath)}`);
+    console.log(`Uploading ${path.basename(zipPath)}...`);
 
     const uploadResponse = await upload({
         apiConfig,
@@ -85,24 +78,23 @@ async function doAutoPublish() {
         throw uploadResponse;
     }
 
-    spinnerStart('Publishing');
+    console.log('Publishing...');
     const publishResponse = await publish(
         { apiConfig, token },
         trustedTesters && 'trustedTesters',
         deployPercentage,
     );
-    spinner.stop();
+
     handlePublishStatus(publishResponse);
 }
 
 async function doUpload() {
-    spinnerStart(`Uploading ${path.basename(zipPath)}`);
+    console.log(`Uploading ${path.basename(zipPath)}`);
     const response = await upload({
         apiConfig,
         zipPath,
     });
 
-    spinner.stop();
     if (!isUploadSuccess(response)) {
         throw response;
     }
@@ -111,20 +103,18 @@ async function doUpload() {
 }
 
 async function doPublish() {
-    spinnerStart('Publishing');
+    console.log('Publishing');
 
     const response = await publish(
         { apiConfig },
         trustedTesters && 'trustedTesters',
         deployPercentage,
     );
-    spinner.stop();
+
     handlePublishStatus(response);
 }
 
 function errorHandler(error) {
-    spinner.stop();
-
     console.log(error?.response?.body ?? error);
     process.exitCode = 1;
 
