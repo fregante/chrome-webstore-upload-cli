@@ -1,5 +1,7 @@
 import path from 'node:path';
+import process from 'node:process';
 import meow from 'meow';
+import cleanStack from 'clean-stack';
 import { upload, publish, fetchToken } from './wrapper.js';
 import {
     isUploadSuccess,
@@ -60,7 +62,15 @@ async function doPublish({ apiConfig, trustedTesters, deployPercentage }) {
 }
 
 export function errorHandler(error) {
-    console.log('❌', error?.response?.body ?? error?.message ?? error);
+    process.exitCode = 1;
+    if (error?.stack) {
+        // TODO: Use `pretty` after https://github.com/sindresorhus/clean-stack/issues/34
+        const lines = cleanStack(error.stack).split('\n');
+        console.error('❌', lines[0]);
+        console.log(lines.slice(1).join('\n'));
+    } else {
+        console.error('❌', error?.response?.body ?? error);
+    }
 
     if (error?.name === 'HTTPError') {
         const response = JSON.parse(error?.response?.body ?? '{}');
