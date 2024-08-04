@@ -17,7 +17,6 @@ You will need a Google API `clientId`, `clientSecret`, and a `refreshToken`. Rea
 You can also automatically upload your extension on:
 
 - GitHub Actions, [workflow including uploading to Mozilla Addons](https://github.com/fregante/ghatemplates/blob/main/webext/release.yml)
-- Travis, [guide](./Travis%20autoupload%20guide.md)
 
 ## Usage
 
