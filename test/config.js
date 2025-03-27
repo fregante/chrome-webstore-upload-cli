@@ -45,11 +45,25 @@ test('Upload', async t => {
     t.false(config.isPublish);
 });
 
+test('Upload has source', async t => {
+    const config = await createConfig('upload', {});
+
+    t.true(config.isUpload);
+    t.truthy(config.zipPath);
+});
+
 test('Publish', async t => {
     const config = await createConfig('publish', {});
 
     t.true(config.isPublish);
     t.false(config.isUpload);
+});
+
+test('Upload does not have source', async t => {
+    const config = await createConfig('publish', {});
+
+    t.true(config.isPublish);
+    t.is(config.zipPath, undefined);
 });
 
 test('Auto Publish', async t => {
@@ -75,4 +89,5 @@ test('Auto upload and publish', async t => {
     t.false(config.isPublish);
     t.true(config.isUpload);
     t.true(config.autoPublish);
+    t.truthy(config.zipPath);
 });

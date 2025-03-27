@@ -8,11 +8,11 @@ export default async function getConfig(command, flags) {
         clientSecret: flags.clientSecret || process.env.CLIENT_SECRET,
         refreshToken: flags.refreshToken || process.env.REFRESH_TOKEN,
     };
-
+    const isUpload = command === 'upload' || !command;
     return {
         apiConfig,
-        zipPath: await findSource(flags.source),
-        isUpload: command === 'upload' || !command,
+        zipPath: isUpload ? await findSource(flags.source) : undefined,
+        isUpload,
         isPublish: command === 'publish',
         autoPublish: flags.autoPublish || !command,
         trustedTesters: flags.trustedTesters,
