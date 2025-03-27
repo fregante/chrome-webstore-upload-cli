@@ -43,12 +43,6 @@ test('Upload', async t => {
 
     t.true(config.isUpload);
     t.false(config.isPublish);
-});
-
-test('Upload has source', async t => {
-    const config = await createConfig('upload', {});
-
-    t.true(config.isUpload);
     t.truthy(config.zipPath);
 });
 
@@ -57,12 +51,6 @@ test('Publish', async t => {
 
     t.true(config.isPublish);
     t.false(config.isUpload);
-});
-
-test('Upload does not have source', async t => {
-    const config = await createConfig('publish', {});
-
-    t.true(config.isPublish);
     t.is(config.zipPath, undefined);
 });
 
