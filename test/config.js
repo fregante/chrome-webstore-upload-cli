@@ -43,6 +43,7 @@ test('Upload', async t => {
 
     t.true(config.isUpload);
     t.false(config.isPublish);
+    t.truthy(config.zipPath);
 });
 
 test('Publish', async t => {
@@ -50,6 +51,7 @@ test('Publish', async t => {
 
     t.true(config.isPublish);
     t.false(config.isUpload);
+    t.is(config.zipPath, undefined);
 });
 
 test('Auto Publish', async t => {
@@ -75,4 +77,5 @@ test('Auto upload and publish', async t => {
     t.false(config.isPublish);
     t.true(config.isUpload);
     t.true(config.autoPublish);
+    t.truthy(config.zipPath);
 });
