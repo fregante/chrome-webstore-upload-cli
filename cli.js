@@ -93,17 +93,20 @@ async function checkResponse(response, currentAttempt = 0) {
     if (isUploadSuccess(response)) {
         return;
     }
+
     if (isUploadInProgress(response)) {
         if (currentAttempt >= uploadRetries) {
             throw new Error('Upload is still in progress, but no retries left');
         }
-        // read the latest status
-        const newResponse = await get({ apiConfig});
+
+        // Read the latest status
+        const newResponse = await get({ apiConfig });
         if (isUploadSuccess(newResponse)) {
             return;
         }
-        // exponential backoff
-        const retryIn = 5000 * 2 ** (uploadRetries - currentAttempt - 1);
+
+        // Exponential backoff
+        const retryIn = 5000 * (2 ** (uploadRetries - currentAttempt - 1));
         console.log(`Upload is still in progress, checking again in ${retryIn / 1000} seconds...`);
         await wait(retryIn);
         return checkResponse(newResponse, currentAttempt + 1);
@@ -178,7 +181,7 @@ function errorHandler(error) {
             console.error(itemError.error_detail);
         }
     } else {
-        console.error('Error: ' + error?.message);
+        console.error('Error: ' + (error?.message || 'Unknown error'));
     }
 }
 

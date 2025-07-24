@@ -27,6 +27,8 @@ export function zipPath(root, file) {
     return relative(root, file);
 }
 
-export function wait (ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+export function wait(ms) {
+    return new Promise(resolve => {
+        setTimeout(resolve, ms);
+    });
 }
