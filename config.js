@@ -17,5 +17,6 @@ export default async function getConfig(command, flags) {
         autoPublish: flags.autoPublish || !command,
         trustedTesters: flags.trustedTesters,
         deployPercentage: flags.deployPercentage,
+        uploadRetries: flags.uploadRetries || process.env.UPLOAD_RETRIES || 5,
     };
 }

@@ -18,6 +18,11 @@ export async function publish({ apiConfig, token }, publishTarget, deployPercent
     return client.publish(publishTarget, token, deployPercentage);
 }
 
+export async function get({ apiConfig, projection, token }) {
+    const client = getClient(apiConfig);
+    return client.get(projection, token);
+}
+
 export async function fetchToken(apiConfig) {
     const client = getClient(apiConfig);
     return client.fetchToken();

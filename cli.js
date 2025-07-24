@@ -4,10 +4,12 @@ import path from 'node:path';
 import process from 'node:process';
 import meow from 'meow';
 import createConfig from './config.js';
-import { upload, publish, fetchToken } from './wrapper.js';
+import { upload, publish, fetchToken, get } from './wrapper.js';
 import {
     isUploadSuccess,
     handlePublishStatus,
+    isUploadInProgress,
+    wait,
 } from './util.js';
 
 const cli = meow(`
@@ -60,6 +62,7 @@ const {
     autoPublish,
     trustedTesters,
     deployPercentage,
+    uploadRetries,
 } = await createConfig(cli.input[0], cli.flags);
 
 async function doAutoPublish() {
@@ -74,9 +77,7 @@ async function doAutoPublish() {
         zipPath,
     });
 
-    if (!isUploadSuccess(uploadResponse)) {
-        throw uploadResponse;
-    }
+    await checkResponse(uploadResponse);
 
     console.log('Publishing...');
     const publishResponse = await publish(
@@ -88,6 +89,29 @@ async function doAutoPublish() {
     handlePublishStatus(publishResponse);
 }
 
+async function checkResponse(response, currentAttempt = 0) {
+    if (isUploadSuccess(response)) {
+        return;
+    }
+    if (isUploadInProgress(response)) {
+        if (currentAttempt >= uploadRetries) {
+            throw new Error('Upload is still in progress, but no retries left');
+        }
+        // read the latest status
+        const newResponse = await get({ apiConfig});
+        if (isUploadSuccess(newResponse)) {
+            return;
+        }
+        // exponential backoff
+        const retryIn = 5000 * 2 ** (uploadRetries - currentAttempt - 1);
+        console.log(`Upload is still in progress, checking again in ${retryIn / 1000} seconds...`);
+        await wait(retryIn);
+        return checkResponse(newResponse, currentAttempt + 1);
+    }
+
+    throw response;
+}
+
 async function doUpload() {
     console.log(`Uploading ${path.basename(zipPath)}`);
     const response = await upload({
@@ -95,9 +119,7 @@ async function doUpload() {
         zipPath,
     });
 
-    if (!isUploadSuccess(response)) {
-        throw response;
-    }
+    await checkResponse(response);
 
     console.log('Upload completed');
 }
@@ -155,6 +177,8 @@ function errorHandler(error) {
             console.error('Error: ' + itemError.error_code);
             console.error(itemError.error_detail);
         }
+    } else {
+        console.error('Error: ' + error?.message);
     }
 }
 
