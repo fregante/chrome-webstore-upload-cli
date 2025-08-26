@@ -17,6 +17,6 @@ export default async function getConfig(command, flags) {
         autoPublish: flags.autoPublish || !command,
         trustedTesters: flags.trustedTesters,
         deployPercentage: flags.deployPercentage,
-        maxAwaitInProgress: flags.maxAwaitInProgress || process.env.MAX_AWAIT_IN_PROGRESS || undefined,
+        maxAwaitInProgress: flags.maxAwaitInProgress
     };
 }
