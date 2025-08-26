@@ -157,6 +157,10 @@ function errorHandler(error) {
             console.error(itemError.error_detail);
         }
     }
+
+    if (error?.uploadState === 'IN_PROGRESS') {
+        console.log('Upload is in progress. Try setting or increasing --max-await-in-progress flag to wait for the upload to complete');
+    }
 }
 
 async function init() {
