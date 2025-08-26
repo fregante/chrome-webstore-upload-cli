@@ -4,13 +4,8 @@ import path from 'node:path';
 import process from 'node:process';
 import meow from 'meow';
 import createConfig from './config.js';
-import { upload, publish, fetchToken, get } from './wrapper.js';
-import {
-    isUploadSuccess,
-    handlePublishStatus,
-    isUploadInProgress,
-    wait,
-} from './util.js';
+import { upload, publish, fetchToken } from './wrapper.js';
+import { isUploadSuccess, handlePublishStatus } from './util.js';
 
 const cli = meow(`
     Usage
@@ -22,14 +17,15 @@ const cli = meow(`
     if the command is missing, it will both upload and publish the extension.
 
     Options
-      --source            Path to either a zip file or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
-      --extension-id      The ID of the Chrome Extension (environment variable EXTENSION_ID)
-      --client-id         OAuth2 Client ID (environment variable CLIENT_ID)
-      --client-secret     OAuth2 Client Secret (environment variable CLIENT_SECRET)
-      --refresh-token     OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
-      --auto-publish      Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
-      --trusted-testers   Can be used with the "publish" command
-      --deploy-percentage Can be used with the "publish" command. Defaults to 100
+      --source                  Path to either a zip file or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
+      --extension-id            The ID of the Chrome Extension (environment variable EXTENSION_ID)
+      --client-id               OAuth2 Client ID (environment variable CLIENT_ID)
+      --client-secret           OAuth2 Client Secret (environment variable CLIENT_SECRET)
+      --refresh-token           OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
+      --auto-publish            Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
+      --trusted-testers         Can be used with the "publish" command
+      --deploy-percentage       Can be used with the "publish" command. Defaults to 100
+      --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds)
 
     Examples
       Upload and publish a new version, using existing environment variables and the default value for --source
@@ -62,7 +58,6 @@ const {
     autoPublish,
     trustedTesters,
     deployPercentage,
-    uploadRetries,
 } = await createConfig(cli.input[0], cli.flags);
 
 async function doAutoPublish() {
@@ -77,7 +72,9 @@ async function doAutoPublish() {
         zipPath,
     });
 
-    await checkResponse(uploadResponse);
+    if (!isUploadSuccess(uploadResponse)) {
+        throw uploadResponse;
+    }
 
     console.log('Publishing...');
     const publishResponse = await publish(
@@ -89,32 +86,6 @@ async function doAutoPublish() {
     handlePublishStatus(publishResponse);
 }
 
-async function checkResponse(response, currentAttempt = 0) {
-    if (isUploadSuccess(response)) {
-        return;
-    }
-
-    if (isUploadInProgress(response)) {
-        if (currentAttempt >= uploadRetries) {
-            throw new Error('Upload is still in progress, but no retries left');
-        }
-
-        // Read the latest status
-        const newResponse = await get({ apiConfig });
-        if (isUploadSuccess(newResponse)) {
-            return;
-        }
-
-        // Exponential backoff
-        const retryIn = 5000 * (2 ** (uploadRetries - currentAttempt - 1));
-        console.log(`Upload is still in progress, checking again in ${retryIn / 1000} seconds...`);
-        await wait(retryIn);
-        return checkResponse(newResponse, currentAttempt + 1);
-    }
-
-    throw response;
-}
-
 async function doUpload() {
     console.log(`Uploading ${path.basename(zipPath)}`);
     const response = await upload({
@@ -122,7 +93,9 @@ async function doUpload() {
         zipPath,
     });
 
-    await checkResponse(response);
+    if (!isUploadSuccess(response)) {
+        throw response;
+    }
 
     console.log('Upload completed');
 }

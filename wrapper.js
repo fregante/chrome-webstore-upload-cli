@@ -10,17 +10,12 @@ export async function upload({ apiConfig, zipPath, token }) {
     const zipStream = isZip(zipPath)
         ? fs.createReadStream(zipPath)
         : await zipdir(zipPath);
-    return client.uploadExisting(zipStream, token);
+    return client.uploadExisting(zipStream, token, apiConfig.maxAwaitInProgress);
 }
 
 export async function publish({ apiConfig, token }, publishTarget, deployPercentage) {
     const client = getClient(apiConfig);
     return client.publish(publishTarget, token, deployPercentage);
-}
-
-export async function get({ apiConfig, projection, token }) {
-    const client = getClient(apiConfig);
-    return client.get(projection, token);
 }
 
 export async function fetchToken(apiConfig) {

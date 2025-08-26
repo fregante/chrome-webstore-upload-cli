@@ -4,10 +4,6 @@ export function isUploadSuccess(response) {
     return response.uploadState === 'SUCCESS';
 }
 
-export function isUploadInProgress(response) {
-    return response.uploadState === 'IN_PROGRESS';
-}
-
 export function handlePublishStatus(item) {
     const [firstStatus] = item.status;
     if (firstStatus === 'OK') {
@@ -25,10 +21,4 @@ export function handlePublishStatus(item) {
 
 export function zipPath(root, file) {
     return relative(root, file);
-}
-
-export function wait(ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
 }
