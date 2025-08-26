@@ -42,6 +42,9 @@ const cli = meow(`
         source: {
             type: 'string',
         },
+        maxAwaitInProgress: {
+            type: 'number',
+        },
     },
 });
 
