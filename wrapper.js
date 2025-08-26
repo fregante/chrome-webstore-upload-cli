@@ -10,7 +10,8 @@ export async function upload({ apiConfig, zipPath, token }) {
     const zipStream = isZip(zipPath)
         ? fs.createReadStream(zipPath)
         : await zipdir(zipPath);
-    return client.uploadExisting(zipStream, token, apiConfig.maxAwaitInProgress);
+    console.log('Uploading with config', apiConfig);
+    return client.uploadExisting(zipStream, token, apiConfig.maxAwaitInProgress ? parseInt(apiConfig.maxAwaitInProgress) : undefined);
 }
 
 export async function publish({ apiConfig, token }, publishTarget, deployPercentage) {
