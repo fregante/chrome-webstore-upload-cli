@@ -61,6 +61,7 @@ const {
     autoPublish,
     trustedTesters,
     deployPercentage,
+    maxAwaitInProgress,
 } = await createConfig(cli.input[0], cli.flags);
 
 async function doAutoPublish() {
@@ -73,6 +74,7 @@ async function doAutoPublish() {
         apiConfig,
         token,
         zipPath,
+        maxAwaitInProgress,
     });
 
     if (!isUploadSuccess(uploadResponse)) {
@@ -94,6 +96,7 @@ async function doUpload() {
     const response = await upload({
         apiConfig,
         zipPath,
+        maxAwaitInProgress,
     });
 
     if (!isUploadSuccess(response)) {
