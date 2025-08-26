@@ -153,8 +153,6 @@ function errorHandler(error) {
             console.error('Error: ' + itemError.error_code);
             console.error(itemError.error_detail);
         }
-    } else {
-        console.error('Error: ' + (error?.message || 'Unknown error'));
     }
 }
 
