@@ -44,6 +44,16 @@ test('Upload', async t => {
     t.true(config.isUpload);
     t.false(config.isPublish);
     t.truthy(config.zipPath);
+    t.falsy(config.maxAwaitInProgress);
+});
+
+test('Upload wait in progress', async t => {
+    const config = await createConfig('upload', { maxAwaitInProgress: 30 });
+
+    t.true(config.isUpload);
+    t.false(config.isPublish);
+    t.truthy(config.zipPath);
+    t.is(config.maxAwaitInProgress, 30);
 });
 
 test('Publish', async t => {

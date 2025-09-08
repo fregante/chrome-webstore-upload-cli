@@ -5,10 +5,7 @@ import process from 'node:process';
 import meow from 'meow';
 import createConfig from './config.js';
 import { upload, publish, fetchToken } from './wrapper.js';
-import {
-    isUploadSuccess,
-    handlePublishStatus,
-} from './util.js';
+import { isUploadSuccess, handlePublishStatus } from './util.js';
 
 const cli = meow(`
     Usage
@@ -20,14 +17,15 @@ const cli = meow(`
     if the command is missing, it will both upload and publish the extension.
 
     Options
-      --source            Path to either a zip file or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
-      --extension-id      The ID of the Chrome Extension (environment variable EXTENSION_ID)
-      --client-id         OAuth2 Client ID (environment variable CLIENT_ID)
-      --client-secret     OAuth2 Client Secret (environment variable CLIENT_SECRET)
-      --refresh-token     OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
-      --auto-publish      Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
-      --trusted-testers   Can be used with the "publish" command
-      --deploy-percentage Can be used with the "publish" command. Defaults to 100
+      --source                  Path to either a zip file or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
+      --extension-id            The ID of the Chrome Extension (environment variable EXTENSION_ID)
+      --client-id               OAuth2 Client ID (environment variable CLIENT_ID)
+      --client-secret           OAuth2 Client Secret (environment variable CLIENT_SECRET)
+      --refresh-token           OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
+      --auto-publish            Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
+      --trusted-testers         Can be used with the "publish" command
+      --deploy-percentage       Can be used with the "publish" command. Defaults to 100
+      --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds)
 
     Examples
       Upload and publish a new version, using existing environment variables and the default value for --source
@@ -43,6 +41,9 @@ const cli = meow(`
     flags: {
         source: {
             type: 'string',
+        },
+        maxAwaitInProgress: {
+            type: 'number',
         },
     },
 });
@@ -60,6 +61,7 @@ const {
     autoPublish,
     trustedTesters,
     deployPercentage,
+    maxAwaitInProgress,
 } = await createConfig(cli.input[0], cli.flags);
 
 async function doAutoPublish() {
@@ -72,6 +74,7 @@ async function doAutoPublish() {
         apiConfig,
         token,
         zipPath,
+        maxAwaitInProgress,
     });
 
     if (!isUploadSuccess(uploadResponse)) {
@@ -93,6 +96,7 @@ async function doUpload() {
     const response = await upload({
         apiConfig,
         zipPath,
+        maxAwaitInProgress,
     });
 
     if (!isUploadSuccess(response)) {
@@ -155,6 +159,10 @@ function errorHandler(error) {
             console.error('Error: ' + itemError.error_code);
             console.error(itemError.error_detail);
         }
+    }
+
+    if (error?.uploadState === 'IN_PROGRESS') {
+        console.log('Upload is in progress. Try setting or increasing --max-await-in-progress flag to wait for the upload to complete');
     }
 }
 

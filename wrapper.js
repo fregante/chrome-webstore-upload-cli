@@ -5,12 +5,12 @@ import zipdir from './zipdir.js';
 
 const isZip = filepath => path.extname(filepath) === '.zip';
 
-export async function upload({ apiConfig, zipPath, token }) {
+export async function upload({ apiConfig, zipPath, token, maxAwaitInProgress }) {
     const client = getClient(apiConfig);
     const zipStream = isZip(zipPath)
         ? fs.createReadStream(zipPath)
         : await zipdir(zipPath);
-    return client.uploadExisting(zipStream, token);
+    return client.uploadExisting(zipStream, token, maxAwaitInProgress);
 }
 
 export async function publish({ apiConfig, token }, publishTarget, deployPercentage) {

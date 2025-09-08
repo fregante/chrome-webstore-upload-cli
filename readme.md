@@ -34,14 +34,15 @@ $ chrome-webstore-upload --help
   if the command is missing, it will both upload and publish the extension.
 
   Options
-    --source            Path to either a zip file or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
-    --extension-id      The ID of the Chrome Extension (environment variable EXTENSION_ID)
-    --client-id         OAuth2 Client ID (environment variable CLIENT_ID)
-    --client-secret     OAuth2 Client Secret (environment variable CLIENT_SECRET)
-    --refresh-token     OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
-    --auto-publish      Can be used with the "upload" command (deprecated, use `chrome-webstore-upload` without a command instead)
-    --trusted-testers   Can be used with the "publish" command
-    --deploy-percentage Can be used with the "publish" command. Defaults to 100
+    --source                  Path to either a zip file or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
+    --extension-id            The ID of the Chrome Extension (environment variable EXTENSION_ID)
+    --client-id               OAuth2 Client ID (environment variable CLIENT_ID)
+    --client-secret           OAuth2 Client Secret (environment variable CLIENT_SECRET)
+    --refresh-token           OAuth2 Refresh Token (environment variable REFRESH_TOKEN)
+    --auto-publish            Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
+    --trusted-testers         Can be used with the "publish" command
+    --deploy-percentage       Can be used with the "publish" command. Defaults to 100
+    --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds)
 
   Examples
     Upload and publish a new version, using existing environment variables and the default value for --source
