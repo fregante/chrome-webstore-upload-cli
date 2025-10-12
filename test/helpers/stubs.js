@@ -23,6 +23,7 @@ const invalidManifest = '{"version": 2}';
 export function mockFileSystem() {
     mockFs({
         'extension.zip': 'LZIP;trustmebro',
+        'extension.crx': 'CRX;trustmebro',
         'extension-dir': {
             'manifest.json': validManifest,
         },

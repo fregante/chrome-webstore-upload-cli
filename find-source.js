@@ -1,8 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
-
-const isZip = filepath => path.extname(filepath) === '.zip';
+import { isArchive } from './util.js';
 
 // Node hates race conditons and ease of use
 // https://github.com/nodejs/node/issues/39960#issuecomment-909444667
@@ -58,7 +57,7 @@ export default async function findSource(flag) {
 
     if (flag) {
         const resolvedPath = path.resolve(cwd, flag);
-        if (!isZip(resolvedPath)) {
+        if (!isArchive(resolvedPath)) {
             return processDirectory(resolvedPath);
         }
 
