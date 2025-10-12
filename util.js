@@ -1,4 +1,9 @@
-import { relative } from 'node:path';
+import { relative, extname } from 'node:path';
+
+export function isArchive(filepath) {
+    const ext = extname(filepath);
+    return ext === '.zip' || ext === '.crx';
+}
 
 export function isUploadSuccess(response) {
     return response.uploadState === 'SUCCESS';

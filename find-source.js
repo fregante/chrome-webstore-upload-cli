@@ -1,11 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
-
-const isArchive = filepath => {
-    const ext = path.extname(filepath);
-    return ext === '.zip' || ext === '.crx';
-};
+import { isArchive } from './util.js';
 
 // Node hates race conditons and ease of use
 // https://github.com/nodejs/node/issues/39960#issuecomment-909444667

@@ -1,12 +1,7 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import getClient from 'chrome-webstore-upload';
 import zipdir from './zipdir.js';
-
-const isArchive = filepath => {
-    const ext = path.extname(filepath);
-    return ext === '.zip' || ext === '.crx';
-};
+import { isArchive } from './util.js';
 
 export async function upload({ apiConfig, zipPath, token, maxAwaitInProgress }) {
     const client = getClient(apiConfig);
