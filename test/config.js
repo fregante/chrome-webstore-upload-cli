@@ -90,26 +90,24 @@ test('Auto upload and publish', async t => {
     t.truthy(config.zipPath);
 });
 
-test('Throws error when --client-id flag is used', async t => {
-    const error = await t.throwsAsync(
+test('Throws error when deprecated secret flags are used', async t => {
+    // Test with --client-id
+    let error = await t.throwsAsync(
         async () => createConfig(null, { clientId: '123' }),
     );
-    t.regex(error.message, /--client-id flag is no longer supported/);
-    t.regex(error.message, /CLIENT_ID environment variable/);
-});
+    t.regex(error.message, /--client-id, --client-secret, and --refresh-token flags are no longer supported/);
+    t.regex(error.message, /CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN environment variables/);
+    t.regex(error.message, /https:\/\/github\.com\/fregante\/chrome-webstore-upload-cli\/issues\/80/);
 
-test('Throws error when --client-secret flag is used', async t => {
-    const error = await t.throwsAsync(
+    // Test with --client-secret
+    error = await t.throwsAsync(
         async () => createConfig(null, { clientSecret: '123' }),
     );
-    t.regex(error.message, /--client-secret flag is no longer supported/);
-    t.regex(error.message, /CLIENT_SECRET environment variable/);
-});
+    t.regex(error.message, /--client-id, --client-secret, and --refresh-token flags are no longer supported/);
 
-test('Throws error when --refresh-token flag is used', async t => {
-    const error = await t.throwsAsync(
+    // Test with --refresh-token
+    error = await t.throwsAsync(
         async () => createConfig(null, { refreshToken: '123' }),
     );
-    t.regex(error.message, /--refresh-token flag is no longer supported/);
-    t.regex(error.message, /REFRESH_TOKEN environment variable/);
+    t.regex(error.message, /--client-id, --client-secret, and --refresh-token flags are no longer supported/);
 });
