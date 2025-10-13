@@ -5,7 +5,7 @@ import { mockFileSystem } from './helpers/stubs.js';
 
 mockFileSystem();
 
-test('Favors params over env vars', async t => {
+test('Extension ID flag takes precedence over env var', async t => {
     process.env.EXTENSION_ID = 123;
     const expectedId = 456;
     const config = await createConfig(null, { extensionId: expectedId });
@@ -88,4 +88,26 @@ test('Auto upload and publish', async t => {
     t.true(config.isUpload);
     t.true(config.autoPublish);
     t.truthy(config.path);
+});
+
+test('Throws error when deprecated secret flags are used', async t => {
+    // Test with --client-id
+    let error = await t.throwsAsync(
+        async () => createConfig(null, { clientId: '123' }),
+    );
+    t.regex(error.message, /--client-id, --client-secret, and --refresh-token flags are no longer supported/);
+    t.regex(error.message, /CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN environment variables/);
+    t.regex(error.message, /https:\/\/github\.com\/fregante\/chrome-webstore-upload-cli\/issues\/80/);
+
+    // Test with --client-secret
+    error = await t.throwsAsync(
+        async () => createConfig(null, { clientSecret: '123' }),
+    );
+    t.regex(error.message, /--client-id, --client-secret, and --refresh-token flags are no longer supported/);
+
+    // Test with --refresh-token
+    error = await t.throwsAsync(
+        async () => createConfig(null, { refreshToken: '123' }),
+    );
+    t.regex(error.message, /--client-id, --client-secret, and --refresh-token flags are no longer supported/);
 });
