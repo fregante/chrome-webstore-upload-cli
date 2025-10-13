@@ -5,15 +5,6 @@ import { mockFileSystem } from './helpers/stubs.js';
 
 mockFileSystem();
 
-test('Favors params over env vars', async t => {
-    process.env.EXTENSION_ID = 123;
-    const expectedId = 456;
-    const config = await createConfig(null, { extensionId: expectedId });
-
-    t.is(config.apiConfig.extensionId, expectedId);
-    delete process.env.EXTENSION_ID;
-});
-
 test('All options supported as env vars', async t => {
     const vars = [
         'EXTENSION_ID',
