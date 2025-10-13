@@ -1,14 +1,8 @@
-import fs from 'node:fs';
 import getClient from 'chrome-webstore-upload';
-import zipdir from './zipdir.js';
-import { isArchive } from './util.js';
 
-export async function upload({ apiConfig, zipPath, token, maxAwaitInProgress }) {
+export async function upload({ apiConfig, path, token, maxAwaitInProgress }) {
     const client = getClient(apiConfig);
-    const zipStream = isArchive(zipPath)
-        ? fs.createReadStream(zipPath)
-        : await zipdir(zipPath);
-    return client.uploadExisting(zipStream, token, maxAwaitInProgress);
+    return client.uploadExisting(path, token, maxAwaitInProgress);
 }
 
 export async function publish({ apiConfig, token }, publishTarget, deployPercentage) {

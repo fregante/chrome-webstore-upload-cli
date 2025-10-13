@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import path from 'node:path';
+import { basename } from 'node:path';
 import process from 'node:process';
 import meow from 'meow';
 import createConfig from './config.js';
@@ -55,7 +55,7 @@ if (cli.input.length > 1) {
 
 const {
     apiConfig,
-    zipPath,
+    path,
     isUpload,
     isPublish,
     autoPublish,
@@ -68,12 +68,12 @@ async function doAutoPublish() {
     console.log('Fetching token...');
 
     const token = await fetchToken(apiConfig);
-    console.log(`Uploading ${path.basename(zipPath)}...`);
+    console.log(`Uploading ${basename(path)}...`);
 
     const uploadResponse = await upload({
         apiConfig,
         token,
-        zipPath,
+        path,
         maxAwaitInProgress,
     });
 
@@ -92,10 +92,10 @@ async function doAutoPublish() {
 }
 
 async function doUpload() {
-    console.log(`Uploading ${path.basename(zipPath)}`);
+    console.log(`Uploading ${basename(path)}`);
     const response = await upload({
         apiConfig,
-        zipPath,
+        path,
         maxAwaitInProgress,
     });
 

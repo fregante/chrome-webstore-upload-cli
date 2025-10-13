@@ -46,16 +46,12 @@
     ]
   },
   "dependencies": {
-    "chrome-webstore-upload": "^3.2.0",
-    "junk": "^4.0.1",
-    "meow": "^12.1.1",
-    "recursive-readdir": "^2.2.3",
-    "yazl": "^2.5.1"
+    "chrome-webstore-upload": "^4.0.2",
+    "meow": "^12.1.1"
   },
   "devDependencies": {
     "ava": "^6.0.1",
     "execa": "^8.0.1",
-    "is-stream": "^3.0.0",
     "mock-fs": "^5.2.0",
     "xo": "^0.56.0"
   },

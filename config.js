@@ -11,7 +11,7 @@ export default async function getConfig(command, flags) {
     const isUpload = command === 'upload' || !command;
     return {
         apiConfig,
-        zipPath: isUpload ? await findSource(flags.source) : undefined,
+        path: isUpload ? await findSource(flags.source) : undefined,
         isUpload,
         isPublish: command === 'publish',
         autoPublish: flags.autoPublish || !command,
