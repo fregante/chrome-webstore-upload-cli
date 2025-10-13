@@ -35,13 +35,13 @@ $ chrome-webstore-upload --help
 
   Options
     --source                  Path to either a zip file, a crx file, or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
+    --extension-id            The ID of the Chrome Extension (environment variable EXTENSION_ID)
     --auto-publish            Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
     --trusted-testers         Can be used with the "publish" command
     --deploy-percentage       Can be used with the "publish" command. Defaults to 100
     --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds)
 
   Environment Variables (required)
-    EXTENSION_ID              The ID of the Chrome Extension
     CLIENT_ID                 OAuth2 Client ID
     CLIENT_SECRET             OAuth2 Client Secret
     REFRESH_TOKEN             OAuth2 Refresh Token
@@ -54,7 +54,7 @@ $ chrome-webstore-upload --help
     $ chrome-webstore-upload upload --source my-custom-zip.zip
 
     Publish the last uploaded version (whether it was uploaded via web UI or via CLI)
-    $ chrome-webstore-upload publish
+    $ chrome-webstore-upload publish --extension-id elomekmlfonmdhmpmdfldcjgdoacjcba
 ```
 
 ## Examples
