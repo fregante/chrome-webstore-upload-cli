@@ -43,7 +43,7 @@ test('Upload', async t => {
 
     t.true(config.isUpload);
     t.false(config.isPublish);
-    t.truthy(config.zipPath);
+    t.truthy(config.path);
     t.falsy(config.maxAwaitInProgress);
 });
 
@@ -52,7 +52,7 @@ test('Upload wait in progress', async t => {
 
     t.true(config.isUpload);
     t.false(config.isPublish);
-    t.truthy(config.zipPath);
+    t.truthy(config.path);
     t.is(config.maxAwaitInProgress, 30);
 });
 
@@ -61,7 +61,7 @@ test('Publish', async t => {
 
     t.true(config.isPublish);
     t.false(config.isUpload);
-    t.is(config.zipPath, undefined);
+    t.is(config.path, undefined);
 });
 
 test('Auto Publish', async t => {
@@ -87,5 +87,5 @@ test('Auto upload and publish', async t => {
     t.false(config.isPublish);
     t.true(config.isUpload);
     t.true(config.autoPublish);
-    t.truthy(config.zipPath);
+    t.truthy(config.path);
 });
