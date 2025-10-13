@@ -89,3 +89,27 @@ test('Auto upload and publish', async t => {
     t.true(config.autoPublish);
     t.truthy(config.zipPath);
 });
+
+test('Throws error when --client-id flag is used', async t => {
+    const error = await t.throwsAsync(
+        async () => createConfig(null, { clientId: '123' }),
+    );
+    t.regex(error.message, /--client-id flag is no longer supported/);
+    t.regex(error.message, /CLIENT_ID environment variable/);
+});
+
+test('Throws error when --client-secret flag is used', async t => {
+    const error = await t.throwsAsync(
+        async () => createConfig(null, { clientSecret: '123' }),
+    );
+    t.regex(error.message, /--client-secret flag is no longer supported/);
+    t.regex(error.message, /CLIENT_SECRET environment variable/);
+});
+
+test('Throws error when --refresh-token flag is used', async t => {
+    const error = await t.throwsAsync(
+        async () => createConfig(null, { refreshToken: '123' }),
+    );
+    t.regex(error.message, /--refresh-token flag is no longer supported/);
+    t.regex(error.message, /REFRESH_TOKEN environment variable/);
+});
