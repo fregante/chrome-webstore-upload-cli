@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import nodePath from 'node:path';
+import { basename } from 'node:path';
 import process from 'node:process';
 import meow from 'meow';
 import createConfig from './config.js';
@@ -68,7 +68,7 @@ async function doAutoPublish() {
     console.log('Fetching token...');
 
     const token = await fetchToken(apiConfig);
-    console.log(`Uploading ${nodePath.basename(path)}...`);
+    console.log(`Uploading ${basename(path)}...`);
 
     const uploadResponse = await upload({
         apiConfig,
@@ -92,7 +92,7 @@ async function doAutoPublish() {
 }
 
 async function doUpload() {
-    console.log(`Uploading ${nodePath.basename(path)}`);
+    console.log(`Uploading ${basename(path)}`);
     const response = await upload({
         apiConfig,
         path,
