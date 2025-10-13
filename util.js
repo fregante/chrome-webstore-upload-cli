@@ -1,4 +1,4 @@
-import { relative, extname } from 'node:path';
+import { extname } from 'node:path';
 
 export function isArchive(filepath) {
     const ext = extname(filepath);
@@ -22,8 +22,4 @@ export function handlePublishStatus(item) {
     }
 
     throw item;
-}
-
-export function zipPath(root, file) {
-    return relative(root, file);
 }
