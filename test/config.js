@@ -111,3 +111,11 @@ test('Throws error when deprecated secret flags are used', async t => {
     );
     t.regex(error.message, /--client-id, --client-secret, and --refresh-token flags are no longer supported/);
 });
+
+test('Throws error when --source is used with publish command', async t => {
+    const error = await t.throwsAsync(
+        async () => createConfig('publish', { source: 'my-file.zip' }),
+    );
+    t.regex(error.message, /--source flag cannot be used with the "publish" command/);
+    t.regex(error.message, /only used with the "upload" command/);
+});
