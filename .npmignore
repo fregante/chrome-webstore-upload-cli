@@ -1,3 +1,2 @@
 test
-source
-build.js
+source/**/*.test.js

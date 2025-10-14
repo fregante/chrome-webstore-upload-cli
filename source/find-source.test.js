@@ -1,8 +1,8 @@
 import path from 'node:path';
 import test from 'ava';
 import mockFs from 'mock-fs';
-import findSource from '../source/find-source.js';
-import { mockFileSystem } from './helpers/stubs.js';
+import { mockFileSystem } from '../test/helpers/stubs.js';
+import findSource from './find-source.js';
 
 mockFileSystem();
 

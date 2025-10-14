@@ -1,6 +1,6 @@
 import process from 'node:process';
 import test from 'ava';
-import { stubConsoleLog } from './helpers/stubs.js';
+import { stubConsoleLog } from '../test/helpers/stubs.js';
 
 test('CWSError displays message with ❌ prefix and helpful links', t => {
     const logs = [];
