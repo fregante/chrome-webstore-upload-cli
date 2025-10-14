@@ -19,7 +19,7 @@ export default async function getConfig(command, flags) {
         path: isUpload ? await findSource(flags.source) : undefined,
         isUpload,
         isPublish: command === 'publish',
-        autoPublish: flags.autoPublish || !command,
+        autoPublish: !command,
         trustedTesters: flags.trustedTesters,
         deployPercentage: flags.deployPercentage,
         maxAwaitInProgress: flags.maxAwaitInProgress,
