@@ -7,6 +7,11 @@ export default async function getConfig(command, flags) {
         throw new Error('The --client-id, --client-secret, and --refresh-token flags are no longer supported. Please use the CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN environment variables instead. See https://github.com/fregante/chrome-webstore-upload-cli/issues/80');
     }
 
+    // Check for --source with publish command
+    if (command === 'publish' && flags.source) {
+        throw new Error('The --source flag cannot be used with the "publish" command. It is only used with the "upload" command.');
+    }
+
     const apiConfig = {
         extensionId: flags.extensionId || process.env.EXTENSION_ID,
         clientId: process.env.CLIENT_ID,
