@@ -60,13 +60,9 @@ $ chrome-webstore-upload --help
 
 The following projects use this package to facilitate auto-deployment of extensions
 
-- [GifHub](https://github.com/DrewML/GifHub)
-- [Octo Preview](https://github.com/DrewML/octo-preview)
+- [Refined GitHub](https://github.com/refined-github/refined-github)
 - [GhostText](https://github.com/fregante/GhostText)
 - [npmhub](https://github.com/npmhub/npmhub)
-- [OctoLinker](https://github.com/octolinker/browser-extension)
-- [Refined GitHub](https://github.com/sindresorhus/refined-github)
-- [FACEIT Enhancer](https://github.com/faceit-enhancer/faceit-enhancer)
 
 ## Related
 
