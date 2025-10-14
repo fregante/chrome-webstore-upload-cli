@@ -88,6 +88,7 @@ async function doAutoPublish() {
         { apiConfig, token },
         trustedTesters && 'trustedTesters',
         deployPercentage,
+        maxAwaitInProgress,
     );
 
     handlePublishStatus(publishResponse);
@@ -115,6 +116,7 @@ async function doPublish() {
         { apiConfig },
         trustedTesters && 'trustedTesters',
         deployPercentage,
+        maxAwaitInProgress,
     );
 
     handlePublishStatus(response);
