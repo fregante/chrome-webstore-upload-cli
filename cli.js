@@ -120,51 +120,21 @@ async function doPublish() {
 }
 
 function errorHandler(error) {
-    console.log(error?.response?.body ?? error);
     process.exitCode = 1;
 
-    if (error?.name === 'HTTPError') {
-        const response = JSON.parse(error?.response?.body ?? '{}');
-        const { clientId, refreshToken } = apiConfig;
-        if (response.error_description === 'The OAuth client was not found.') {
-            console.error(
-                'Probably the provided client ID is not valid. Try following the guide again',
-            );
-            console.error(
-                'https://github.com/fregante/chrome-webstore-upload-keys',
-            );
-            console.error({ clientId });
-            return;
-        }
-
-        if (response.error_description === 'Bad Request') {
-            const { clientId } = apiConfig;
-            console.error(
-                'Probably the provided refresh token is not valid. Try following the guide again',
-            );
-            console.error(
-                'https://github.com/fregante/chrome-webstore-upload-keys',
-            );
-            console.error({ clientId, refreshToken });
-            return;
-        }
-
-        if (error?.message === 'Response code 400 (Bad Request)') {
-            // Nothing else to add
-            return;
-        }
+    // Handle CWSError from chrome-webstore-upload package
+    if (error?.name === 'CWSError') {
+        console.error(`❌ ${error.message}`);
+        console.error('Does the dev console require changes?');
+        console.error('https://chrome.google.com/webstore/devconsole');
+        console.error('');
+        console.error('Did you follow the guide to generate the keys?');
+        console.error('https://github.com/fregante/chrome-webstore-upload-keys');
+        return;
     }
 
-    if (error?.itemError?.length > 0) {
-        for (const itemError of error.itemError) {
-            console.error('Error: ' + itemError.error_code);
-            console.error(itemError.error_detail);
-        }
-    }
-
-    if (error?.uploadState === 'IN_PROGRESS') {
-        console.log('Upload is in progress. Try setting or increasing --max-await-in-progress flag to wait for the upload to complete');
-    }
+    // Fallback for unknown error types
+    console.log(error);
 }
 
 async function init() {
