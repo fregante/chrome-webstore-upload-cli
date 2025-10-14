@@ -121,8 +121,23 @@ async function doPublish() {
 }
 
 function errorHandler(error) {
-    console.log(error?.response?.body ?? error);
     process.exitCode = 1;
+
+    // Handle CWSError from chrome-webstore-upload package
+    if (error?.name === 'CWSError') {
+        console.error(`❌ ${error.message}`);
+
+        // Add helpful link to developer console for certain types of errors
+        const message = error.message.toLowerCase();
+        if (message.includes('publish') || message.includes('privacy') || message.includes('contact email') || message.includes('certify')) {
+            console.error('https://chrome.google.com/webstore/devconsole');
+        }
+
+        return;
+    }
+
+    // Fallback for other error types
+    console.log(error?.response?.body ?? error);
 
     if (error?.name === 'HTTPError') {
         const response = JSON.parse(error?.response?.body ?? '{}');
