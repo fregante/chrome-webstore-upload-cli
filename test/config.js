@@ -64,12 +64,6 @@ test('Publish', async t => {
     t.is(config.path, undefined);
 });
 
-test('Auto Publish', async t => {
-    const config = await createConfig(null, { autoPublish: true });
-
-    t.true(config.autoPublish);
-});
-
 test('Publish with deploy percentage', async t => {
     const config = await createConfig(null, { deployPercentage: 5 });
 

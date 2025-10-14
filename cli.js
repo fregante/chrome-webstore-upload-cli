@@ -19,7 +19,6 @@ const cli = meow(`
     Options
       --source                  Path to either a zip file, a crx file, or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
       --extension-id            The ID of the Chrome Extension (environment variable EXTENSION_ID)
-      --auto-publish            Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
       --trusted-testers         Can be used with the "publish" command
       --deploy-percentage       Can be used with the "publish" command. Defaults to 100
       --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds)
