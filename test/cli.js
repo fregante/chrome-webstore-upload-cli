@@ -16,7 +16,7 @@ mockFileSystem();
 
 test('Exits w/ message when param required by "Web Store Upload" is not provided', async t => {
     try {
-        await execa('./cli.js', ['upload', '--source', 'test/fixtures/without-junk']);
+        await execa('./distribution/cli.js', ['upload', '--source', 'test/fixtures/without-junk']);
         t.fail('Should have errored');
     } catch (error) {
         t.regex(error.message, /Option ".+" is required/);
@@ -25,7 +25,7 @@ test('Exits w/ message when param required by "Web Store Upload" is not provided
 
 test('It should attempt to read ./manifest.json when the --source param is not provided', async t => {
     try {
-        await execa('./cli.js', ['upload'], {
+        await execa('./distribution/cli.js', ['upload'], {
             env: env(),
         });
         t.pass();

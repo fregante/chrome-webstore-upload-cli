@@ -22,14 +22,18 @@
   ],
   "type": "module",
   "bin": {
-    "chrome-webstore-upload": "cli.js"
+    "chrome-webstore-upload": "distribution/cli.js"
   },
   "scripts": {
+    "build": "node build.js",
+    "pretest": "npm run build",
     "test": "xo && ava"
   },
   "xo": {
     "ignore": [
-      "test/fixtures"
+      "test/fixtures",
+      "distribution",
+      "build.js"
     ],
     "rules": {
       "object-curly-spacing": [
