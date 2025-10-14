@@ -39,7 +39,7 @@ $ chrome-webstore-upload --help
     --auto-publish            Can be used with the "upload" command (deprecated, use \`chrome-webstore-upload\` without a command instead)
     --trusted-testers         Can be used with the "publish" command
     --deploy-percentage       Can be used with the "publish" command. Defaults to 100
-    --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds)
+    --max-await-in-progress   Max time to wait for an upload to complete before publishing, if it's returning IN_PROGRESS (in seconds). Defaults to 60
 
   Environment Variables (required)
     CLIENT_ID                 OAuth2 Client ID
