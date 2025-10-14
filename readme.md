@@ -38,7 +38,7 @@ $ chrome-webstore-upload --help
     --extension-id            The ID of the Chrome Extension (environment variable EXTENSION_ID)
     --trusted-testers         Can be used with the "publish" command
     --deploy-percentage       Can be used with the "publish" command. Defaults to 100
-    --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds)
+    --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds, defaults to 300)
 
   Environment Variables (required)
     CLIENT_ID                 OAuth2 Client ID

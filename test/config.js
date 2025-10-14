@@ -44,7 +44,7 @@ test('Upload', async t => {
     t.true(config.isUpload);
     t.false(config.isPublish);
     t.truthy(config.path);
-    t.falsy(config.maxAwaitInProgress);
+    t.is(config.maxAwaitInProgress, 300);
 });
 
 test('Upload wait in progress', async t => {
@@ -54,6 +54,15 @@ test('Upload wait in progress', async t => {
     t.false(config.isPublish);
     t.truthy(config.path);
     t.is(config.maxAwaitInProgress, 30);
+});
+
+test('Upload defaults to waiting in progress', async t => {
+    const config = await createConfig('upload', {});
+
+    t.true(config.isUpload);
+    t.false(config.isPublish);
+    t.truthy(config.path);
+    t.is(config.maxAwaitInProgress, 300);
 });
 
 test('Publish', async t => {
@@ -82,6 +91,7 @@ test('Auto upload and publish', async t => {
     t.true(config.isUpload);
     t.true(config.autoPublish);
     t.truthy(config.path);
+    t.is(config.maxAwaitInProgress, 300);
 });
 
 test('Throws error when deprecated secret flags are used', async t => {
