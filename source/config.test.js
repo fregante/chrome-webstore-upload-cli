@@ -1,7 +1,7 @@
 import process from 'node:process';
 import test from 'ava';
-import createConfig from '../config.js';
-import { mockFileSystem } from './helpers/stubs.js';
+import { mockFileSystem } from '../test/helpers/stubs.js';
+import createConfig from './config.js';
 
 mockFileSystem();
 

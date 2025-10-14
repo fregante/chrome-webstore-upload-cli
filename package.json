@@ -22,7 +22,7 @@
   ],
   "type": "module",
   "bin": {
-    "chrome-webstore-upload": "cli.js"
+    "chrome-webstore-upload": "source/cli.js"
   },
   "scripts": {
     "test": "xo && ava"
@@ -41,6 +41,7 @@
   },
   "ava": {
     "files": [
+      "source/**/*.test.js",
       "!test/fixtures/**",
       "!test/helpers/**"
     ]
