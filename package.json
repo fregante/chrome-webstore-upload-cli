@@ -2,6 +2,7 @@
   "name": "chrome-webstore-upload-cli",
   "version": "4.0.0-0",
   "description": "CLI tool to upload Chrome Extensions to the Chrome Web Store",
+  "types": "index.d.ts",
   "keywords": [
     "chrome",
     "publish",
