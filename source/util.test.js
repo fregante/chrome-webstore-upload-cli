@@ -1,6 +1,8 @@
 import test from 'ava';
-import { isArchive,
-    isUploadSuccess } from './util.js';
+import {
+    isArchive,
+    isUploadSuccess,
+} from './util.js';
 
 test('isArchive', t => {
     t.true(isArchive('extension.zip'));

@@ -1,7 +1,7 @@
-import { extname } from 'node:path';
+import path from 'node:path';
 
 export function isArchive(filepath) {
-    const ext = extname(filepath);
+    const ext = path.extname(filepath);
     return ext === '.zip' || ext === '.crx';
 }
 
