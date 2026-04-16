@@ -26,6 +26,7 @@ test('It should attempt to read ./manifest.json when the --source param is not p
         () => ({ failed: false, message: '' }),
         error => ({ failed: true, message: error.message }),
     );
-    t.true(attempt.failed === false || Boolean(attempt.message));
-    t.regex(attempt.message, /^(|Using the cwd, the directory does not contain manifest\.json)/v);
+    const outcome = attempt.failed ? `failed:${attempt.message}` : 'ok';
+    t.is(typeof attempt.failed, 'boolean');
+    t.regex(outcome, /^(ok|failed:[\s\S]*Using the cwd, the directory does not contain manifest\.json)/v);
 });
