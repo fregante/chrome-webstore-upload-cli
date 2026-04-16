@@ -15,21 +15,13 @@ function env(vars = {}) {
 mockFileSystem();
 
 test('Exits w/ message when param required by "Web Store Upload" is not provided', async t => {
-    try {
-        await execa('./source/cli.js', ['upload', '--source', 'test/fixtures/without-junk']);
-        t.fail('Should have errored');
-    } catch (error) {
-        t.regex(error.message, /Option ".+" is required/);
-    }
+    const error = await t.throwsAsync(execa('./source/cli.js', ['upload', '--source', 'test/fixtures/without-junk']));
+    t.regex(error.message, /Option ".+" is required/v);
 });
 
 test('It should attempt to read ./manifest.json when the --source param is not provided', async t => {
-    try {
-        await execa('./source/cli.js', ['upload'], {
-            env: env(),
-        });
-        t.pass();
-    } catch (error) {
-        t.regex(error.message, /Using the cwd, the directory does not contain manifest.json/);
-    }
+    const error = await t.throwsAsync(execa('./source/cli.js', ['upload'], {
+        env: env(),
+    }));
+    t.regex(error.message, /Using the cwd, the directory does not contain manifest.json/v);
 });

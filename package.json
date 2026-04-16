@@ -29,22 +29,13 @@
   },
   "xo": {
     "ignores": [
-      "test/fixtures/**"
+      "**/test/fixtures/**"
     ],
     "rules": {
       "@stylistic/object-curly-spacing": [
         "error",
         "always"
-      ],
-      "@stylistic/function-paren-newline": "off",
-      "@stylistic/object-curly-newline": "off",
-      "@stylistic/curly-newline": "off",
-      "require-unicode-regexp": "off",
-      "unicorn/import-style": "off",
-      "unicorn/no-empty-file": "off",
-      "ava/prefer-t-throws": "off",
-      "ava/no-conditional-assertion": "off",
-      "ava/no-useless-t-pass": "off"
+      ]
     },
     "space": 4
   },

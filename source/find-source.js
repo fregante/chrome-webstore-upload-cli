@@ -24,13 +24,12 @@ async function processDirectory(resolvedPath, errorStart = 'The') {
         throw new Error(`${errorStart} directory does not contain manifest.json: ${resolvedPath}`);
     }
 
-    let manifest;
-    try {
-        manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
-        if (typeof manifest.manifest_version === 'number') {
-            return resolvedPath;
-        }
-    } catch {}
+    const manifest = await fs.readFile(manifestPath, 'utf8')
+        .then(content => JSON.parse(content))
+        .catch(() => undefined);
+    if (typeof manifest?.manifest_version === 'number') {
+        return resolvedPath;
+    }
 
     throw new Error(`${errorStart} directory does not contain a valid manifest.json: ${resolvedPath}`);
 }
