@@ -1,6 +1,6 @@
 {
   "name": "chrome-webstore-upload-cli",
-  "version": "4.0.0-0",
+  "version": "4.0.0-1",
   "description": "CLI tool to upload Chrome Extensions to the Chrome Web Store",
   "keywords": [
     "chrome",
@@ -44,7 +44,7 @@
     ]
   },
   "dependencies": {
-    "chrome-webstore-upload": "^4.0.2",
+    "chrome-webstore-upload": "^5.0.0-0",
     "meow": "^12.1.1"
   },
   "devDependencies": {
