@@ -28,14 +28,23 @@
     "test": "xo && ava"
   },
   "xo": {
-    "ignore": [
-      "test/fixtures"
+    "ignores": [
+      "test/fixtures/**"
     ],
     "rules": {
-      "object-curly-spacing": [
+      "@stylistic/object-curly-spacing": [
         "error",
         "always"
-      ]
+      ],
+      "@stylistic/function-paren-newline": "off",
+      "@stylistic/object-curly-newline": "off",
+      "@stylistic/curly-newline": "off",
+      "require-unicode-regexp": "off",
+      "unicorn/import-style": "off",
+      "unicorn/no-empty-file": "off",
+      "ava/prefer-t-throws": "off",
+      "ava/no-conditional-assertion": "off",
+      "ava/no-useless-t-pass": "off"
     },
     "space": 4
   },
@@ -47,14 +56,14 @@
     ]
   },
   "dependencies": {
-    "chrome-webstore-upload": "^4.0.2",
-    "meow": "^12.1.1"
+    "chrome-webstore-upload": "^4.0.3",
+    "meow": "^14.1.0"
   },
   "devDependencies": {
-    "ava": "^6.0.1",
-    "execa": "^8.0.1",
-    "mock-fs": "^5.2.0",
-    "xo": "^0.56.0"
+    "ava": "^7.0.0",
+    "execa": "^9.6.1",
+    "mock-fs": "^5.5.0",
+    "xo": "^2.0.2"
   },
   "engines": {
     "node": ">=20"
