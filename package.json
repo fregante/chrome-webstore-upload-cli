@@ -44,8 +44,8 @@
     ]
   },
   "dependencies": {
-    "chrome-webstore-upload": "^4.0.3",
-    "meow": "^14.1.0"
+    "chrome-webstore-upload": "^4.0.2",
+    "meow": "^12.1.1"
   },
   "devDependencies": {
     "ava": "^7.0.0",

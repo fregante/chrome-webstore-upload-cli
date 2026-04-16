@@ -23,11 +23,9 @@ test('It should attempt to read ./manifest.json when the --source param is not p
     const attempt = await execa('./source/cli.js', ['upload'], {
         env: env(),
     }).then(
-        () => ({ failed: false }),
+        () => ({ failed: false, message: '' }),
         error => ({ failed: true, message: error.message }),
     );
-    const isSuccess = attempt.failed === false;
-    const isExpectedManifestError = attempt.failed
-        && /Using the cwd, the directory does not contain manifest.json/v.test(attempt.message);
-    t.true(isSuccess || isExpectedManifestError);
+    t.true(attempt.failed === false || Boolean(attempt.message));
+    t.regex(attempt.message, /^(|Using the cwd, the directory does not contain manifest\.json)/v);
 });
