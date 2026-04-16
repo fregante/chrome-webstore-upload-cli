@@ -26,5 +26,5 @@ test('It should attempt to read ./manifest.json when the --source param is not p
         () => ({ failed: false }),
         error => ({ failed: true, message: error.message }),
     );
-    t.true(!attempt.failed || /Using the cwd, the directory does not contain manifest.json/v.test(attempt.message));
+    t.true(attempt.failed === false || /Using the cwd, the directory does not contain manifest.json/v.test(attempt.message));
 });
