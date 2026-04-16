@@ -22,5 +22,7 @@ test('Exits w/ message when param required by "Web Store Upload" is not provided
 test('It should attempt to read ./manifest.json when the --source param is not provided', async t => {
     await t.throwsAsync(execa('./source/cli.js', ['upload'], {
         env: env(),
-    }));
+    }), {
+        message: /Using the cwd, the directory does not contain manifest\.json/v,
+    });
 });
