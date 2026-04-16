@@ -20,8 +20,11 @@ test('Exits w/ message when param required by "Web Store Upload" is not provided
 });
 
 test('It should attempt to read ./manifest.json when the --source param is not provided', async t => {
-    const error = await execa('./source/cli.js', ['upload'], {
+    const attempt = await execa('./source/cli.js', ['upload'], {
         env: env(),
-    }).then(() => null, error => error);
-    t.true(error === null || /Using the cwd, the directory does not contain manifest.json/v.test(error.message));
+    }).then(
+        () => ({ failed: false }),
+        error => ({ failed: true, message: error.message }),
+    );
+    t.true(!attempt.failed || /Using the cwd, the directory does not contain manifest.json/v.test(attempt.message));
 });

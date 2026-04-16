@@ -28,9 +28,6 @@
     "test": "xo && ava"
   },
   "xo": {
-    "ignores": [
-      "**/test/fixtures/**"
-    ],
     "rules": {
       "@stylistic/object-curly-spacing": [
         "error",
