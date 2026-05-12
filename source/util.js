@@ -10,10 +10,38 @@ export function isUploadSuccess(response) {
 }
 
 export function handlePublishStatus(item) {
-    if (item.state === 'PUBLISHED') {
-        console.log('Publish successful');
-        return;
-    }
+    switch (item.state) {
+        case 'PUBLISHED': {
+            console.log('Published successfully');
+            return;
+        }
 
-    throw new Error(`Unexpected publish state: ${item.state}`);
+        case 'PUBLISHED_TO_TESTERS': {
+            console.log('Published to trusted testers');
+            return;
+        }
+
+        case 'PENDING_REVIEW': {
+            console.log('Pending review');
+            return;
+        }
+
+        case 'STAGED': {
+            console.log('Staged and ready to publish');
+            return;
+        }
+
+        case 'CANCELLED': {
+            console.log('Submission was cancelled');
+            return;
+        }
+
+        case 'REJECTED': {
+            throw new Error('Publish rejected');
+        }
+
+        default: {
+            console.log(`Publish state: ${item.state}`);
+        }
+    }
 }
