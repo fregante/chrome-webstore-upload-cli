@@ -87,7 +87,7 @@ async function doAutoPublish() {
     console.log('Publishing...');
     const publishResponse = await publish(
         { apiConfig, token },
-        trustedTesters && 'trustedTesters',
+        trustedTesters ? 'TRUSTED_TESTERS' : undefined,
         deployPercentage,
     );
 
@@ -114,7 +114,7 @@ async function doPublish() {
 
     const response = await publish(
         { apiConfig },
-        trustedTesters && 'trustedTesters',
+        trustedTesters ? 'TRUSTED_TESTERS' : undefined,
         deployPercentage,
     );
 

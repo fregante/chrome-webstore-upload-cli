@@ -10,16 +10,10 @@ export function isUploadSuccess(response) {
 }
 
 export function handlePublishStatus(item) {
-    const [firstStatus] = item.status;
-    if (firstStatus === 'OK') {
+    if (item.state === 'PUBLISHED') {
         console.log('Publish successful');
         return;
     }
 
-    if (firstStatus === 'ITEM_PENDING_REVIEW') {
-        console.log('Publish pending review');
-        return;
-    }
-
-    throw item;
+    throw new Error(`Unexpected publish state: ${item.state}`);
 }
