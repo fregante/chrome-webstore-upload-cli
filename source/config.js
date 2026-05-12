@@ -14,6 +14,7 @@ export default async function getConfig(command, flags) {
 
     const apiConfig = {
         extensionId: flags.extensionId || process.env.EXTENSION_ID,
+        publisherId: flags.publisherId || process.env.PUBLISHER_ID,
         clientId: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         refreshToken: process.env.REFRESH_TOKEN,

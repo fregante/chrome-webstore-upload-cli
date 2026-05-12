@@ -6,20 +6,42 @@ export function isArchive(filepath) {
 }
 
 export function isUploadSuccess(response) {
-    return response.uploadState === 'SUCCESS';
+    return response.uploadState === 'SUCCEEDED';
 }
 
 export function handlePublishStatus(item) {
-    const [firstStatus] = item.status;
-    if (firstStatus === 'OK') {
-        console.log('Publish successful');
-        return;
-    }
+    switch (item.state) {
+        case 'PUBLISHED': {
+            console.log('Published successfully');
+            return;
+        }
 
-    if (firstStatus === 'ITEM_PENDING_REVIEW') {
-        console.log('Publish pending review');
-        return;
-    }
+        case 'PUBLISHED_TO_TESTERS': {
+            console.log('Published to trusted testers');
+            return;
+        }
 
-    throw item;
+        case 'PENDING_REVIEW': {
+            console.log('Pending review');
+            return;
+        }
+
+        case 'STAGED': {
+            console.log('Staged and ready to publish');
+            return;
+        }
+
+        case 'CANCELLED': {
+            console.log('Submission was cancelled');
+            return;
+        }
+
+        case 'REJECTED': {
+            throw new Error('Publish rejected');
+        }
+
+        default: {
+            console.log(`Publish state: ${item.state}`);
+        }
+    }
 }

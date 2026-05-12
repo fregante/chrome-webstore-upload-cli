@@ -19,6 +19,7 @@ const cli = meow(`
     Options
       --source                  Path to either a zip file, a crx file, or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
       --extension-id            The ID of the Chrome Extension (environment variable EXTENSION_ID)
+      --publisher-id            The publisher ID of your Chrome Web Store developer account (environment variable PUBLISHER_ID)
       --trusted-testers         Can be used with the "publish" command
       --deploy-percentage       Can be used with the "publish" command. Defaults to 100
       --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds, defaults to 300)
@@ -27,6 +28,7 @@ const cli = meow(`
       CLIENT_ID                 OAuth2 Client ID
       CLIENT_SECRET             OAuth2 Client Secret
       REFRESH_TOKEN             OAuth2 Refresh Token
+      PUBLISHER_ID              Your Chrome Web Store publisher ID
 
     Examples
       Upload and publish a new version, using existing environment variables and the default value for --source
@@ -85,7 +87,7 @@ async function doAutoPublish() {
     console.log('Publishing...');
     const publishResponse = await publish(
         { apiConfig, token },
-        trustedTesters && 'trustedTesters',
+        trustedTesters ? 'TRUSTED_TESTERS' : undefined,
         deployPercentage,
     );
 
@@ -112,7 +114,7 @@ async function doPublish() {
 
     const response = await publish(
         { apiConfig },
-        trustedTesters && 'trustedTesters',
+        trustedTesters ? 'TRUSTED_TESTERS' : undefined,
         deployPercentage,
     );
 
