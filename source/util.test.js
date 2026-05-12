@@ -14,7 +14,10 @@ test('isArchive', t => {
 
 test('isUploadSuccess', t => {
     t.true(isUploadSuccess({
-        uploadState: 'SUCCESS',
+        uploadState: 'SUCCEEDED',
+    }));
+    t.false(isUploadSuccess({
+        uploadState: 'FAILURE',
     }));
 });
 

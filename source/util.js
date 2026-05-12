@@ -6,7 +6,7 @@ export function isArchive(filepath) {
 }
 
 export function isUploadSuccess(response) {
-    return response.uploadState === 'SUCCESS';
+    return response.uploadState === 'SUCCEEDED';
 }
 
 export function handlePublishStatus(item) {
