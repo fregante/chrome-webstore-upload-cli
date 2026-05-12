@@ -14,9 +14,19 @@ test('Extension ID flag takes precedence over env var', async t => {
     delete process.env.EXTENSION_ID;
 });
 
+test('Publisher ID flag takes precedence over env var', async t => {
+    process.env.PUBLISHER_ID = 'env-publisher';
+    const expectedId = 'flag-publisher';
+    const config = await createConfig(null, { publisherId: expectedId });
+
+    t.is(config.apiConfig.publisherId, expectedId);
+    delete process.env.PUBLISHER_ID;
+});
+
 test('All options supported as env vars', async t => {
     const vars = [
         'EXTENSION_ID',
+        'PUBLISHER_ID',
         'CLIENT_ID',
         'CLIENT_SECRET',
         'REFRESH_TOKEN',
@@ -29,6 +39,7 @@ test('All options supported as env vars', async t => {
 
     const config = await createConfig(null, {});
     t.is(config.apiConfig.extensionId, varsValue);
+    t.is(config.apiConfig.publisherId, varsValue);
     t.is(config.apiConfig.clientId, varsValue);
     t.is(config.apiConfig.clientSecret, varsValue);
     t.is(config.apiConfig.refreshToken, varsValue);
