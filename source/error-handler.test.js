@@ -1,6 +1,7 @@
 import process from 'node:process';
 import test from 'ava';
 import { stubConsoleLog } from '../test/helpers/stubs.js';
+import { extractDetailLines, handleError } from './error-handler.js';
 
 test('CWSError displays message with ❌ prefix and helpful links', t => {
     const logs = [];
@@ -26,15 +27,7 @@ test('CWSError displays message with ❌ prefix and helpful links', t => {
 
     process.exitCode = 0;
 
-    // Simulate error handling
-    if (error?.name === 'CWSError') {
-        console.error(`❌ ${error.message}`);
-        console.error('Does the dev console require changes?');
-        console.error('https://chrome.google.com/webstore/devconsole');
-        console.error('');
-        console.error('Did you follow the guide to generate the keys?');
-        console.error('https://github.com/fregante/chrome-webstore-upload-keys');
-    }
+    handleError(error);
 
     restoreLog();
     restoreError();
@@ -46,6 +39,9 @@ test('CWSError displays message with ❌ prefix and helpful links', t => {
     t.is(errors[3], '');
     t.is(errors[4], 'Did you follow the guide to generate the keys?');
     t.is(errors[5], 'https://github.com/fregante/chrome-webstore-upload-keys');
+
+    t.is(process.exitCode, 1);
+    process.exitCode = 0;
 });
 
 test('CWSError with publish-related message shows both links', t => {
@@ -68,15 +64,7 @@ test('CWSError with publish-related message shows both links', t => {
 
     process.exitCode = 0;
 
-    // Simulate error handling
-    if (error?.name === 'CWSError') {
-        console.error(`❌ ${error.message}`);
-        console.error('Does the dev console require changes?');
-        console.error('https://chrome.google.com/webstore/devconsole');
-        console.error('');
-        console.error('Did you follow the guide to generate the keys?');
-        console.error('https://github.com/fregante/chrome-webstore-upload-keys');
-    }
+    handleError(error);
 
     restoreError();
 
@@ -87,6 +75,9 @@ test('CWSError with publish-related message shows both links', t => {
     t.is(errors[3], '');
     t.is(errors[4], 'Did you follow the guide to generate the keys?');
     t.is(errors[5], 'https://github.com/fregante/chrome-webstore-upload-keys');
+
+    t.is(process.exitCode, 1);
+    process.exitCode = 0;
 });
 
 test('CWSError with any message shows both links', t => {
@@ -109,15 +100,7 @@ test('CWSError with any message shows both links', t => {
 
     process.exitCode = 0;
 
-    // Simulate error handling
-    if (error?.name === 'CWSError') {
-        console.error(`❌ ${error.message}`);
-        console.error('Does the dev console require changes?');
-        console.error('https://chrome.google.com/webstore/devconsole');
-        console.error('');
-        console.error('Did you follow the guide to generate the keys?');
-        console.error('https://github.com/fregante/chrome-webstore-upload-keys');
-    }
+    handleError(error);
 
     restoreError();
 
@@ -128,5 +111,64 @@ test('CWSError with any message shows both links', t => {
     t.is(errors[3], '');
     t.is(errors[4], 'Did you follow the guide to generate the keys?');
     t.is(errors[5], 'https://github.com/fregante/chrome-webstore-upload-keys');
+
+    t.is(process.exitCode, 1);
+    process.exitCode = 0;
 });
 
+test('extractDetailLines returns BadRequest field violations', t => {
+    const details = [
+        {
+            '@type': 'type.googleapis.com/google.rpc.BadRequest',
+            fieldViolations: [
+                {
+                    field: 'media',
+                    description: 'The manifest has an invalid version: 0.0.0.',
+                    reason: 'PKG_MANIFEST_PARSE_ERROR',
+                },
+            ],
+        },
+    ];
+
+    t.deepEqual(extractDetailLines(details), [
+        'media: The manifest has an invalid version: 0.0.0.',
+    ]);
+});
+
+test('extractDetailLines returns localized messages and reasons', t => {
+    const details = [
+        {
+            '@type': 'type.googleapis.com/google.rpc.LocalizedMessage',
+            message: 'The uploaded package was invalid.',
+        },
+        {
+            '@type': 'type.googleapis.com/google.rpc.ErrorInfo',
+            reason: 'INVALID_PACKAGE',
+        },
+    ];
+
+    t.deepEqual(extractDetailLines(details), [
+        'The uploaded package was invalid.',
+        'INVALID_PACKAGE',
+    ]);
+});
+
+test('extractDetailLines ignores empty entries', t => {
+    const details = [
+        null,
+        {
+            '@type': 'type.googleapis.com/google.rpc.BadRequest',
+            fieldViolations: [
+                {
+                    field: 'media',
+                    description: '   ',
+                },
+            ],
+        },
+        {
+            '@type': 'type.googleapis.com/google.rpc.ErrorInfo',
+        },
+    ];
+
+    t.deepEqual(extractDetailLines(details), []);
+});
