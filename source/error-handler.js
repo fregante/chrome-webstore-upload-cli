@@ -20,7 +20,7 @@ export function extractDetailLines(details) {
                 const field = typeof violation.field === 'string' ? violation.field.trim() : '';
                 const description = typeof violation.description === 'string' ? violation.description.trim() : '';
                 const reason = typeof violation.reason === 'string' ? violation.reason.trim() : '';
-                const message = description || reason;
+                const message = [description, reason].filter(Boolean).join(' ');
 
                 if (!message) {
                     continue;

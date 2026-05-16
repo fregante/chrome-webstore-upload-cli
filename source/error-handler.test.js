@@ -131,7 +131,7 @@ test('extractDetailLines returns BadRequest field violations', t => {
     ];
 
     t.deepEqual(extractDetailLines(details), [
-        'media: The manifest has an invalid version: 0.0.0.',
+        'media: The manifest has an invalid version: 0.0.0. PKG_MANIFEST_PARSE_ERROR',
     ]);
 });
 
