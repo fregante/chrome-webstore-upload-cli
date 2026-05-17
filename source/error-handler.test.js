@@ -172,3 +172,16 @@ test('extractDetailLines ignores empty entries', t => {
 
     t.deepEqual(extractDetailLines(details), []);
 });
+
+test('extractDetailLines includes non-empty string details', t => {
+    const details = [
+        '  Additional detail line  ',
+        '',
+        'Second line',
+    ];
+
+    t.deepEqual(extractDetailLines(details), [
+        'Additional detail line',
+        'Second line',
+    ]);
+});

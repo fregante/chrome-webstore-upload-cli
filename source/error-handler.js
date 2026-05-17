@@ -7,6 +7,16 @@ export function extractDetailLines(details) {
     const lines = [];
 
     for (const detail of detailItems) {
+        if (typeof detail === 'string') {
+            const message = detail.trim();
+
+            if (message) {
+                lines.push(message);
+            }
+
+            continue;
+        }
+
         if (!detail || typeof detail !== 'object') {
             continue;
         }
