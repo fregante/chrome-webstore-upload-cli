@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import nodePath from 'node:path';
-import process from 'node:process';
 import meow from 'meow';
 import createConfig from './config.js';
 import { upload, publish, fetchToken } from './wrapper.js';
 import { isUploadSuccess, handlePublishStatus } from './util.js';
+import { handleError } from './error-handler.js';
 
 const cli = meow(`
     Usage
@@ -121,24 +121,6 @@ async function doPublish() {
     handlePublishStatus(response);
 }
 
-function errorHandler(error) {
-    process.exitCode = 1;
-
-    // Handle CWSError from chrome-webstore-upload package
-    if (error?.name === 'CWSError') {
-        console.error(`❌ ${error.message}`);
-        console.error('Does the dev console require changes?');
-        console.error('https://chrome.google.com/webstore/devconsole');
-        console.error('');
-        console.error('Did you follow the guide to generate the keys?');
-        console.error('https://github.com/fregante/chrome-webstore-upload-keys');
-        return;
-    }
-
-    // Fallback for unknown error types
-    console.log(error);
-}
-
 async function init() {
     if (isUpload && autoPublish) {
         await doAutoPublish();
@@ -152,5 +134,5 @@ async function init() {
 try {
     await init();
 } catch (error) {
-    errorHandler(error);
+    handleError(error);
 }
