@@ -7,6 +7,11 @@ export default async function getConfig(command, flags) {
         throw new Error('The --client-id, --client-secret, and --refresh-token flags are no longer supported. Please use the CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN environment variables instead. See https://github.com/fregante/chrome-webstore-upload-cli/issues/80');
     }
 
+    // Fail rather than silently publishing to everyone
+    if (flags.trustedTesters) {
+        throw new Error('The --trusted-testers flag is no longer supported by the Chrome Web Store API. To publish to testers only, set the item\'s visibility to Private in the developer dashboard. See https://github.com/fregante/chrome-webstore-upload-cli/issues/114');
+    }
+
     // Check for --source with publish command
     if (command === 'publish' && flags.source) {
         throw new Error('The --source flag cannot be used with the "publish" command. It is only used with the "upload" command.');
@@ -26,7 +31,6 @@ export default async function getConfig(command, flags) {
         isUpload,
         isPublish: command === 'publish',
         autoPublish: !command,
-        trustedTesters: flags.trustedTesters,
         deployPercentage: flags.deployPercentage,
         maxAwaitInProgress: flags.maxAwaitInProgress ?? 300,
     };

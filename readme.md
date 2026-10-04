@@ -37,7 +37,6 @@ $ chrome-webstore-upload --help
     --source                  Path to either a zip file, a crx file, or a directory to be zipped. Defaults to the value of webExt.sourceDir in package.json or the current directory if not specified
     --extension-id            The ID of the Chrome Extension (environment variable EXTENSION_ID)
     --publisher-id            The publisher ID of your Chrome Web Store developer account (environment variable PUBLISHER_ID)
-    --trusted-testers         Can be used with the "publish" command
     --deploy-percentage       Can be used with the "publish" command. Defaults to 100
     --max-await-in-progress   Max time to wait for the upload to complete, if it's returning IN_PROGRESS (in seconds, defaults to 300)
 

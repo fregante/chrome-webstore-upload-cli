@@ -5,9 +5,9 @@ export async function upload({ apiConfig, path, token, maxAwaitInProgress }) {
     return client.uploadExisting(path, token, maxAwaitInProgress);
 }
 
-export async function publish({ apiConfig, token }, publishTarget, deployPercentage) {
+export async function publish({ apiConfig, token }, deployPercentage) {
     const client = getClient(apiConfig);
-    return client.publish(publishTarget, token, deployPercentage);
+    return client.publish(undefined, token, deployPercentage);
 }
 
 export async function fetchToken(apiConfig) {
